@@ -1,4 +1,5 @@
-import { api, useAuthenticateAccountMutation, FormState } from "./apiSlice";
-
+import { api, useAuthenticateAccountMutation } from "./apiSlice";
 export { api, useAuthenticateAccountMutation };
-export type { FormState };
+
+import userReducer, { setCurrentUser } from "./userSlice";
+export { userReducer, setCurrentUser };

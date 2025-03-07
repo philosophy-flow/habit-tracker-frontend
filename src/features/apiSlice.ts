@@ -1,30 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
-export interface FormState {
-    username: string;
-    password: string;
-}
-
-interface UserState {
-    profile: {
-        userId: string;
-        email: string;
-        username: string;
-        profileImageUrl: string;
-        accountVerified: boolean;
-    };
-    token: {
-        access_token: string;
-        token_type: string;
-    };
-    loggedIn: boolean;
-}
+import { LoginForm, UserResponse } from "../types";
 
 export const api = createApi({
     baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000" }),
     endpoints: (build) => ({
-        authenticateAccount: build.mutation<UserState, FormState>({
-            query: (credentials: FormState) => {
+        authenticateAccount: build.mutation<UserResponse, LoginForm>({
+            query: (credentials: LoginForm) => {
                 const formData = new URLSearchParams();
                 formData.append("username", credentials.username);
                 formData.append("password", credentials.password);

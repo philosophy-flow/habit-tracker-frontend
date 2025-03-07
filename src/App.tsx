@@ -1,8 +1,5 @@
-import { useEffect } from "react";
 import { Routes, Route } from "react-router";
-
 import { BaseLayout, ProtectedLayout } from "./layouts";
-import { useAuthenticateAccountMutation, FormState } from "./features";
 import {
     HomePage,
     SignupPage,
@@ -12,19 +9,6 @@ import {
 } from "./pages";
 
 function App() {
-    const [authenticateAccount, result] = useAuthenticateAccountMutation();
-
-    useEffect(() => {
-        const testCreds: FormState = {
-            username: "tester",
-            password: "safe",
-        };
-
-        authenticateAccount(testCreds);
-    }, [authenticateAccount]);
-
-    console.log(result);
-
     return (
         <Routes>
             <Route path="/" element={<BaseLayout />}>
