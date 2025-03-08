@@ -1,8 +1,11 @@
 import { Navigate, Outlet } from "react-router";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
 export default function ProtectedLayout() {
-    const isAuthenticated = false;
-    if (!isAuthenticated) {
+    const authToken = useSelector((state: RootState) => state.authToken);
+
+    if (!authToken) {
         return <Navigate to="/login" />;
     }
 

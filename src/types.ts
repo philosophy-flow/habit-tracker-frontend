@@ -11,12 +11,9 @@ export type User = {
     accountVerified: boolean;
 };
 
-export type UserResponse = {
-    user: User;
-    token: {
-        access_token: string;
-        token_type: string;
-    };
+export type AuthResponse = {
+    auth_token: string;
+    token_type: string;
 };
 
 export type FormEvent = React.ChangeEvent<HTMLInputElement>;

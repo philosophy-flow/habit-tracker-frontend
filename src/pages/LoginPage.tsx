@@ -1,13 +1,15 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 
-import { useAuthenticateAccountMutation, setCurrentUser } from "../features";
-import { LoginForm, FormEvent, FormSubmit } from "../types.ts";
+import { useAuthenticateAccountMutation, setAuthToken } from "../features";
+import { LoginForm, FormEvent, FormSubmit, AuthResponse } from "../types.ts";
 
 export default function LoginPage() {
     const [authenticateAccount, { isLoading, isSuccess, isError }] =
         useAuthenticateAccountMutation();
     const [formInfo, setFormInfo] = useState({ username: "", password: "" });
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const handleFormInput = (e: FormEvent) => {
@@ -23,11 +25,13 @@ export default function LoginPage() {
         e.preventDefault();
 
         try {
-            const response = await authenticateAccount(formInfo).unwrap();
-            console.log("Full response:", response);
-            dispatch(setCurrentUser(response.user));
-        } catch (error) {
-            console.log(`Login failed: ${JSON.stringify(error)}`);
+            const response: AuthResponse = await authenticateAccount(
+                formInfo
+            ).unwrap();
+            dispatch(setAuthToken(response));
+            navigate("/habits");
+        } catch (error: unknown) {
+            console.log("Login failed: ", error);
         }
     };
 

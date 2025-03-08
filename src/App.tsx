@@ -5,7 +5,7 @@ import {
     SignupPage,
     ConfirmationPage,
     LoginPage,
-    ProtectedPage,
+    HabitsPage,
 } from "./pages";
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
                 <Route path="login" element={<LoginPage />} />
 
                 <Route element={<ProtectedLayout />}>
-                    <Route path="/protected" element={<ProtectedPage />} />
+                    <Route path="/habits" element={<HabitsPage />} />
                 </Route>
             </Route>
         </Routes>
