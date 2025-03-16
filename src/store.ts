@@ -4,7 +4,7 @@ import { api, userReducer, authReducer } from "./features";
 
 export const store = configureStore({
     reducer: {
-        [api.reducerPath]: api.reducer,
+        api: api.reducer,
         currentUser: userReducer,
         authToken: authReducer,
     },

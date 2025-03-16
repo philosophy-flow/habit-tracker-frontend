@@ -8,7 +8,7 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         setAuthToken: (_state, action: PayloadAction<AuthResponse>) =>
-            action.payload.auth_token,
+            action.payload.access_token,
     },
 });
 
