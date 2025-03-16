@@ -1,10 +1,20 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { LoginForm, AuthResponse } from "../types";
+import { LoginForm, AuthResponse, User } from "../types";
+import { RootState } from "../store";
 
 export const api = createApi({
-    baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000" }),
-    endpoints: (build) => ({
-        authenticateAccount: build.mutation<AuthResponse, LoginForm>({
+    reducerPath: "api",
+    baseQuery: fetchBaseQuery({
+        baseUrl: "http://localhost:8000",
+        prepareHeaders: (headers, { getState }) => {
+            const authToken = (getState() as RootState).authToken;
+            if (authToken) {
+                headers.set("authorization", `Bearer ${authToken}`);
+            }
+        },
+    }),
+    endpoints: (builder) => ({
+        authenticateAccount: builder.mutation<AuthResponse, LoginForm>({
             query: (credentials: LoginForm) => {
                 const formData = new URLSearchParams();
                 formData.append("username", credentials.username);
@@ -21,7 +31,11 @@ export const api = createApi({
                 };
             },
         }),
+        getCurrentUser: builder.query<User, void>({
+            query: () => "/user",
+        }),
     }),
 });
 
-export const { useAuthenticateAccountMutation } = api;
+export const { useAuthenticateAccountMutation, useLazyGetCurrentUserQuery } =
+    api;
