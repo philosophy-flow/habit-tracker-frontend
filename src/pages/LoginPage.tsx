@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
-import { useDispatch } from "react-redux";
+import { Navigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
     useAuthenticateAccountMutation,
@@ -15,6 +15,7 @@ import {
     AuthResponse,
     User,
 } from "../types.ts";
+import { RootState } from "../store.ts";
 
 export default function LoginPage() {
     const [
@@ -28,7 +29,8 @@ export default function LoginPage() {
     ] = useLazyGetCurrentUserQuery();
 
     const [formInfo, setFormInfo] = useState({ username: "", password: "" });
-    const navigate = useNavigate();
+    const authToken = useSelector((state: RootState) => state.authToken);
+
     const dispatch = useDispatch();
 
     const handleFormInput = (e: FormEvent) => {
@@ -51,12 +53,14 @@ export default function LoginPage() {
 
             const userResponse: User = await getCurrentUser().unwrap();
             dispatch(setCurrentUser(userResponse));
-
-            navigate("/habits");
         } catch (error: unknown) {
             console.log("Login failed: ", error);
         }
     };
+
+    if (authToken) {
+        return <Navigate to="/habits" />;
+    }
 
     return (
         <div>

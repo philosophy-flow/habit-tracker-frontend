@@ -1,9 +1,15 @@
 import {
     api,
     useAuthenticateAccountMutation,
+    useRefreshAccountMutation,
     useLazyGetCurrentUserQuery,
 } from "./apiSlice";
-export { api, useAuthenticateAccountMutation, useLazyGetCurrentUserQuery };
+export {
+    api,
+    useAuthenticateAccountMutation,
+    useRefreshAccountMutation,
+    useLazyGetCurrentUserQuery,
+};
 
 import userReducer, { setCurrentUser } from "./userSlice";
 export { userReducer, setCurrentUser };

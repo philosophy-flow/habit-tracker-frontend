@@ -32,11 +32,22 @@ export const api = createApi({
                 };
             },
         }),
+        refreshAccount: builder.mutation<AuthResponse, void>({
+            query: () => {
+                return {
+                    url: "/refresh",
+                    method: "GET",
+                };
+            },
+        }),
         getCurrentUser: builder.query<User, void>({
             query: () => "/user",
         }),
     }),
 });
 
-export const { useAuthenticateAccountMutation, useLazyGetCurrentUserQuery } =
-    api;
+export const {
+    useAuthenticateAccountMutation,
+    useRefreshAccountMutation,
+    useLazyGetCurrentUserQuery,
+} = api;
