@@ -40,6 +40,14 @@ export const api = createApi({
                 };
             },
         }),
+        signoutAccount: builder.mutation<{ message: string }, void>({
+            query: () => {
+                return {
+                    url: "/logout",
+                    method: "GET",
+                };
+            },
+        }),
         getCurrentUser: builder.query<User, void>({
             query: () => "/user",
         }),
@@ -49,5 +57,6 @@ export const api = createApi({
 export const {
     useAuthenticateAccountMutation,
     useRefreshAccountMutation,
+    useSignoutAccountMutation,
     useLazyGetCurrentUserQuery,
 } = api;

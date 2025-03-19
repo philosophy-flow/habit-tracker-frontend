@@ -2,12 +2,14 @@ import {
     api,
     useAuthenticateAccountMutation,
     useRefreshAccountMutation,
+    useSignoutAccountMutation,
     useLazyGetCurrentUserQuery,
 } from "./apiSlice";
 export {
     api,
     useAuthenticateAccountMutation,
     useRefreshAccountMutation,
+    useSignoutAccountMutation,
     useLazyGetCurrentUserQuery,
 };
 

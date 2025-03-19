@@ -1,3 +1,14 @@
+import useHandleSignout from "../hooks/useSignoutAccount";
+import Button from "../components/Button";
+import Header from "../components/Header";
+
 export default function HabitsPage() {
-    return <p>Habits Page (protected)</p>;
+    const handleSignout = useHandleSignout();
+
+    return (
+        <div className="m-4">
+            <Header label="Habits Page (protected)" />
+            <Button onClick={handleSignout} label="Sign Out" />
+        </div>
+    );
 }
