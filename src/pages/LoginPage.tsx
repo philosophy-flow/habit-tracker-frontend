@@ -16,6 +16,7 @@ import {
     User,
 } from "../types.ts";
 import { RootState } from "../store.ts";
+import { Button, Header } from "../components";
 
 export default function LoginPage() {
     const [
@@ -46,9 +47,8 @@ export default function LoginPage() {
         e.preventDefault();
 
         try {
-            const authResponse: AuthResponse = await authenticateAccount(
-                formInfo
-            ).unwrap();
+            const authResponse: AuthResponse =
+                await authenticateAccount(formInfo).unwrap();
             dispatch(setAuthToken(authResponse));
 
             const userResponse: User = await getCurrentUser().unwrap();
@@ -64,8 +64,7 @@ export default function LoginPage() {
 
     return (
         <div>
-            <h1>Welcome to Habit Tracker</h1>
-            <br />
+            <Header label="Login" />
             {(authError || userError) && (
                 <div>
                     <p>Authentication failed; please try again.</p>
@@ -73,21 +72,29 @@ export default function LoginPage() {
             )}
 
             {(!authSucess || !userSuccess) && (
-                <form onSubmit={(e) => handleFormSubmit(e)}>
+                <form
+                    className="my-2 rounded border border-[#009963] p-2"
+                    onSubmit={(e) => handleFormSubmit(e)}
+                >
                     <label htmlFor="username-field">Username:</label>
                     <input
+                        className="g-gray-50 focus:border-red focus:ring-red mb-4 block w-full rounded-lg border border-[#009963] p-2.5 text-sm"
                         onChange={(e) => handleFormInput(e)}
                         id="username-field"
                         name="username"
+                        type="text"
                     />
 
                     <label htmlFor="password-field">Password:</label>
                     <input
+                        className="g-gray-50 focus:border-red focus:ring-red mb-4 block w-full rounded-lg border border-[#009963] p-2.5 text-sm"
                         onChange={(e) => handleFormInput(e)}
                         id="password-field"
                         name="password"
+                        type="password"
                     />
-                    <button type="submit">Submit</button>
+
+                    <Button label="Submit" />
                 </form>
             )}
 

@@ -5,8 +5,8 @@ export default function HabitsPage() {
     const handleSignout = useHandleSignout();
 
     return (
-        <div className="m-4">
-            <Header label="Habits Page (protected)" />
+        <div>
+            <Header label="Habits" />
             <Button onClick={handleSignout} label="Sign Out" />
         </div>
     );

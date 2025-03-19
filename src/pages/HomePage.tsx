@@ -1,3 +1,10 @@
+import { Header } from "../components";
+
 export default function HomePage() {
-    return <p>HOMEPAGE</p>;
+    return (
+        <>
+            <Header label="Habit Tracker" />
+            <p>Take control.</p>
+        </>
+    );
 }
