@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router";
 
-import useRefreshAccount from "./hooks/useRefreshAccount";
+import { useRefreshAccount } from "./hooks";
 import { BaseLayout, ProtectedLayout } from "./layouts";
 import {
     HomePage,

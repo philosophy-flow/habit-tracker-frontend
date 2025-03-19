@@ -1,6 +1,5 @@
-import useHandleSignout from "../hooks/useSignoutAccount";
-import Button from "../components/Button";
-import Header from "../components/Header";
+import { useHandleSignout } from "../hooks";
+import { Button, Header } from "../components";
 
 export default function HabitsPage() {
     const handleSignout = useHandleSignout();
