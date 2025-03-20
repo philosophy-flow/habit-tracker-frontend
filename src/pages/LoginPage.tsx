@@ -35,8 +35,6 @@ export default function LoginPage() {
     const dispatch = useDispatch();
 
     const handleFormInput = (e: FormEvent) => {
-        e.preventDefault();
-
         setFormInfo((state: LoginForm) => ({
             ...state,
             [e.target.name]: e.target.value,

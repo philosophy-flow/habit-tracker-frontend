@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { LoginForm, AuthResponse, User } from "../types";
+import { LoginForm, AuthResponse, User, RegisterForm } from "../types";
 import { RootState } from "../store";
 
 export const api = createApi({
@@ -48,6 +48,11 @@ export const api = createApi({
                 };
             },
         }),
+        registerAccount: builder.mutation<{ message: string }, RegisterForm>({
+            query: (userData: RegisterForm) => {
+                return { url: "/register", method: "POST", body: userData };
+            },
+        }),
         getCurrentUser: builder.query<User, void>({
             query: () => "/user",
         }),
@@ -58,5 +63,6 @@ export const {
     useAuthenticateAccountMutation,
     useRefreshAccountMutation,
     useSignoutAccountMutation,
+    useRegisterAccountMutation,
     useLazyGetCurrentUserQuery,
 } = api;
