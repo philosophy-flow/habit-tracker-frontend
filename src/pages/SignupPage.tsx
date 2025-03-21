@@ -4,9 +4,9 @@ import { useNavigate, Navigate } from "react-router";
 
 import { FormEvent, FormSubmit } from "../types";
 import { useRegisterAccountMutation } from "../features/apiSlice";
-import { Header, Button } from "../components";
 import { RegisterForm } from "../types";
 import { RootState } from "../store";
+import AuthForm from "../components/AuthForm";
 
 export default function SignupPage() {
     const navigate = useNavigate();
@@ -42,59 +42,16 @@ export default function SignupPage() {
     }
 
     return (
-        <>
-            <Header label="Sign Up" />
-            {isError && (
-                <div>
-                    <p>Registration failed; please try again.</p>
-                </div>
-            )}
-            {!isSuccess && (
-                <form
-                    className="my-2 rounded border border-[#009963] p-2"
-                    onSubmit={(e) => handleFormSubmit(e)}
-                >
-                    <label htmlFor="email-field">Email:</label>
-                    <input
-                        className="g-gray-50 focus:border-red focus:ring-red mb-4 block w-full rounded-lg border border-[#009963] p-2.5 text-sm"
-                        onChange={(e) => handleFormInput(e)}
-                        id="email-field"
-                        name="email"
-                        type="text"
-                    />
-                    <label htmlFor="username-field">Username:</label>
-                    <input
-                        className="g-gray-50 focus:border-red focus:ring-red mb-4 block w-full rounded-lg border border-[#009963] p-2.5 text-sm"
-                        onChange={(e) => handleFormInput(e)}
-                        id="username-field"
-                        name="username"
-                        type="text"
-                    />
-
-                    <label htmlFor="password-field">Password:</label>
-                    <input
-                        className="g-gray-50 focus:border-red focus:ring-red mb-4 block w-full rounded-lg border border-[#009963] p-2.5 text-sm"
-                        onChange={(e) => handleFormInput(e)}
-                        id="password-field"
-                        name="password"
-                        type="password"
-                    />
-
-                    <Button label="Submit" />
-                </form>
-            )}
-
-            {isLoading && (
-                <div>
-                    <p>Registering ...</p>
-                </div>
-            )}
-
-            {isSuccess && (
-                <div>
-                    <p>You successfully registered!</p>
-                </div>
-            )}
-        </>
+        <AuthForm
+            type={"signup"}
+            isError={isError}
+            errorMessage="Registration failed; please try again."
+            isLoading={isLoading}
+            loadingMessage="Registering ..."
+            isSuccess={isSuccess}
+            successMessage="You successfully registered!"
+            handleFormInput={handleFormInput}
+            handleFormSubmit={handleFormSubmit}
+        />
     );
 }

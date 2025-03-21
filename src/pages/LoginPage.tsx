@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Navigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 
+import AuthForm from "../components/AuthForm.tsx";
+
 import {
     useAuthenticateAccountMutation,
     setAuthToken,
@@ -16,12 +18,11 @@ import {
     User,
 } from "../types.ts";
 import { RootState } from "../store.ts";
-import { Button, Header } from "../components";
 
 export default function LoginPage() {
     const [
         authenticateAccount,
-        { isLoading: authLoading, isSuccess: authSucess, isError: authError },
+        { isLoading: authLoading, isSuccess: authSuccess, isError: authError },
     ] = useAuthenticateAccountMutation();
 
     const [
@@ -61,52 +62,16 @@ export default function LoginPage() {
     }
 
     return (
-        <div>
-            <Header label="Login" />
-            {(authError || userError) && (
-                <div>
-                    <p>Authentication failed; please try again.</p>
-                </div>
-            )}
-
-            {(!authSucess || !userSuccess) && (
-                <form
-                    className="my-2 rounded border border-[#009963] p-2"
-                    onSubmit={(e) => handleFormSubmit(e)}
-                >
-                    <label htmlFor="username-field">Username:</label>
-                    <input
-                        className="g-gray-50 focus:border-red focus:ring-red mb-4 block w-full rounded-lg border border-[#009963] p-2.5 text-sm"
-                        onChange={(e) => handleFormInput(e)}
-                        id="username-field"
-                        name="username"
-                        type="text"
-                    />
-
-                    <label htmlFor="password-field">Password:</label>
-                    <input
-                        className="g-gray-50 focus:border-red focus:ring-red mb-4 block w-full rounded-lg border border-[#009963] p-2.5 text-sm"
-                        onChange={(e) => handleFormInput(e)}
-                        id="password-field"
-                        name="password"
-                        type="password"
-                    />
-
-                    <Button label="Submit" />
-                </form>
-            )}
-
-            {(authLoading || userLoading) && (
-                <div>
-                    <p>Verifying ...</p>
-                </div>
-            )}
-
-            {authSucess && userSuccess && (
-                <div>
-                    <p>You successfully logged in!</p>
-                </div>
-            )}
-        </div>
+        <AuthForm
+            type={"login"}
+            isError={authError || userError}
+            errorMessage="Authentication failed; please try again."
+            isLoading={authLoading || userLoading}
+            loadingMessage="Verifying ..."
+            isSuccess={authSuccess && userSuccess}
+            successMessage="You successfully logged in!"
+            handleFormInput={handleFormInput}
+            handleFormSubmit={handleFormSubmit}
+        />
     );
 }
