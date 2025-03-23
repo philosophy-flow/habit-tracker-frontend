@@ -1,12 +1,18 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-import { setAuthToken, useRefreshAccountMutation } from "../features";
-import { AuthResponse } from "../types";
+import {
+    setAuthToken,
+    useRefreshAccountMutation,
+    useLazyGetCurrentUserQuery,
+    setCurrentUser,
+} from "../features";
+import { AuthResponse, User } from "../types";
 
 export default function useRefreshAccount() {
     const [refreshAccount, { isLoading, isUninitialized }] =
         useRefreshAccountMutation();
+    const [getCurrentUser] = useLazyGetCurrentUserQuery();
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -14,12 +20,14 @@ export default function useRefreshAccount() {
             try {
                 const token: AuthResponse = await refreshAccount().unwrap();
                 dispatch(setAuthToken(token));
+                const user: User = await getCurrentUser().unwrap();
+                dispatch(setCurrentUser(user));
             } catch {
                 console.log("Unable to authorize account.");
             }
         }
         refresh();
-    }, [refreshAccount, dispatch]);
+    }, [refreshAccount, dispatch, getCurrentUser]);
 
     return { isLoading, isUninitialized };
 }
