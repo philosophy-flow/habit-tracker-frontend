@@ -11,8 +11,12 @@ export default function useRefreshAccount() {
 
     useEffect(() => {
         async function refresh() {
-            const token: AuthResponse = await refreshAccount().unwrap();
-            dispatch(setAuthToken(token));
+            try {
+                const token: AuthResponse = await refreshAccount().unwrap();
+                dispatch(setAuthToken(token));
+            } catch {
+                console.log("Unable to authorize account.");
+            }
         }
         refresh();
     }, [refreshAccount, dispatch]);
