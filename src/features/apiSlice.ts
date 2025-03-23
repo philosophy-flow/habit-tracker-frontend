@@ -1,19 +1,45 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import type {
+    BaseQueryFn,
+    FetchArgs,
+    FetchBaseQueryError,
+} from "@reduxjs/toolkit/query";
 import { LoginForm, AuthResponse, User, RegisterForm } from "../types";
 import { RootState } from "../store";
+import { setAuthToken } from "./authSlice";
+
+const baseQuery = fetchBaseQuery({
+    baseUrl: "https://localhost:8000",
+    credentials: "include",
+    prepareHeaders: (headers, { getState }) => {
+        const authToken = (getState() as RootState).authToken;
+        if (authToken) {
+            headers.set("authorization", `Bearer ${authToken}`);
+        }
+    },
+});
+
+const baseQueryWithRefresh: BaseQueryFn<
+    string | FetchArgs,
+    unknown,
+    FetchBaseQueryError
+> = async (args, api, extraOptions) => {
+    let authResult = await baseQuery(args, api, extraOptions);
+
+    if (authResult.error && authResult.error.status === 401) {
+        const refreshResult = await baseQuery("/refresh", api, extraOptions);
+        if (refreshResult.data) {
+            api.dispatch(setAuthToken(refreshResult.data as AuthResponse));
+            authResult = await baseQuery(args, api, extraOptions);
+        }
+    }
+
+    return authResult;
+};
 
 export const api = createApi({
     reducerPath: "api",
-    baseQuery: fetchBaseQuery({
-        baseUrl: "https://localhost:8000",
-        credentials: "include",
-        prepareHeaders: (headers, { getState }) => {
-            const authToken = (getState() as RootState).authToken;
-            if (authToken) {
-                headers.set("authorization", `Bearer ${authToken}`);
-            }
-        },
-    }),
+    baseQuery: baseQueryWithRefresh,
     endpoints: (builder) => ({
         authenticateAccount: builder.mutation<AuthResponse, LoginForm>({
             query: (credentials: LoginForm) => {
