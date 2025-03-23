@@ -31,6 +31,8 @@ const baseQueryWithRefresh: BaseQueryFn<
         if (refreshResult.data) {
             api.dispatch(setAuthToken(refreshResult.data as AuthResponse));
             authResult = await baseQuery(args, api, extraOptions);
+        } else if (window.location.pathname != "/login") {
+            window.location.href = "/login";
         }
     }
 

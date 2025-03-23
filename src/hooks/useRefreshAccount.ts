@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 
 import {
     setAuthToken,
@@ -14,6 +15,7 @@ export default function useRefreshAccount() {
         useRefreshAccountMutation();
     const [getCurrentUser] = useLazyGetCurrentUserQuery();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function refresh() {
@@ -23,11 +25,12 @@ export default function useRefreshAccount() {
                 const user: User = await getCurrentUser().unwrap();
                 dispatch(setCurrentUser(user));
             } catch {
-                console.log("Unable to authorize account.");
+                console.log("Unable to authorize account; please login again.");
+                navigate("/login");
             }
         }
         refresh();
-    }, [refreshAccount, dispatch, getCurrentUser]);
+    }, [refreshAccount, dispatch, getCurrentUser, navigate]);
 
     return { isLoading, isUninitialized };
 }
