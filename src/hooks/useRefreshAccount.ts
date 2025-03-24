@@ -26,7 +26,6 @@ export default function useRefreshAccount() {
                 dispatch(setCurrentUser(user));
             } catch {
                 console.log("Unable to authorize account; please login again.");
-                navigate("/login");
             }
         }
         refresh();
