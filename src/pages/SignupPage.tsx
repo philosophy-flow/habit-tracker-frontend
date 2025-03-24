@@ -31,7 +31,7 @@ export default function SignupPage() {
         try {
             const registerResponse = await registerAccount(formInfo).unwrap();
             console.log(registerResponse);
-            navigate("/login");
+            navigate("/confirmation");
         } catch (error: unknown) {
             console.log("Account registration failed: ", error);
         }
