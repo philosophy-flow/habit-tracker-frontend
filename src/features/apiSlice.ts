@@ -31,6 +31,8 @@ const baseQueryWithRefresh: BaseQueryFn<
         if (refreshResult.data) {
             api.dispatch(setAuthToken(refreshResult.data as AuthResponse));
             authResult = await baseQuery(args, api, extraOptions);
+        } else {
+            console.log("Unable to authenticate account. Please login again.");
         }
     }
 

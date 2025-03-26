@@ -25,7 +25,9 @@ export default function useRefreshAccount() {
                 const user: User = await getCurrentUser().unwrap();
                 dispatch(setCurrentUser(user));
             } catch {
-                console.log("Unable to authorize account; please login again.");
+                console.log(
+                    "Unable to authenticate account; please login again.",
+                );
             }
         }
         refresh();
