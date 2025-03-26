@@ -1,6 +1,17 @@
 import { Button } from "../components";
+import { useNavigate } from "react-router";
 
 export default function HomePage() {
+    const navigate = useNavigate();
+
+    const handleSignupClick = () => {
+        navigate("/signup");
+    };
+
+    const handleLoginClick = () => {
+        navigate("/login");
+    };
+
     return (
         <>
             <h1 className="m-2 text-center text-xl">Habit Tracker</h1>
@@ -9,8 +20,12 @@ export default function HomePage() {
             </figure>
             <h2 className="m-2 text-center text-xl">Get it together.</h2>
             <div>
-                <Button label="Sign Up" />
-                <Button label="Login" />
+                <Button label="Sign Up" onClick={handleSignupClick} />
+                <Button
+                    label="Login"
+                    variant="secondary"
+                    onClick={handleLoginClick}
+                />
             </div>
         </>
     );
