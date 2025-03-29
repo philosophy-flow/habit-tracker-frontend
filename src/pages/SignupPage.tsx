@@ -6,7 +6,7 @@ import { FormEvent, FormSubmit } from "../types";
 import { useRegisterAccountMutation } from "../features/apiSlice";
 import { RegisterForm } from "../types";
 import { RootState } from "../store";
-import AuthForm from "../components/AuthForm";
+import { AuthForm, NavigateText } from "../components";
 
 export default function SignupPage() {
     const navigate = useNavigate();
@@ -42,16 +42,23 @@ export default function SignupPage() {
     }
 
     return (
-        <AuthForm
-            type={"signup"}
-            isError={isError}
-            errorMessage="Registration failed; please try again."
-            isLoading={isLoading}
-            loadingMessage="Registering ..."
-            isSuccess={isSuccess}
-            successMessage="You successfully registered!"
-            handleFormInput={handleFormInput}
-            handleFormSubmit={handleFormSubmit}
-        />
+        <>
+            <AuthForm
+                type={"signup"}
+                isError={isError}
+                errorMessage="Registration failed; please try again."
+                isLoading={isLoading}
+                loadingMessage="Registering ..."
+                isSuccess={isSuccess}
+                successMessage="You successfully registered!"
+                handleFormInput={handleFormInput}
+                handleFormSubmit={handleFormSubmit}
+            />
+            <NavigateText
+                helperText="Already have an account?"
+                anchorText="Login"
+                path="login"
+            />
+        </>
     );
 }

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Navigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 
-import AuthForm from "../components/AuthForm.tsx";
+import { AuthForm, NavigateText } from "../components";
 
 import {
     useAuthenticateAccountMutation,
@@ -62,16 +62,23 @@ export default function LoginPage() {
     }
 
     return (
-        <AuthForm
-            type={"login"}
-            isError={authError || userError}
-            errorMessage="Authentication failed; please try again."
-            isLoading={authLoading || userLoading}
-            loadingMessage="Verifying ..."
-            isSuccess={authSuccess && userSuccess}
-            successMessage="You successfully logged in!"
-            handleFormInput={handleFormInput}
-            handleFormSubmit={handleFormSubmit}
-        />
+        <>
+            <AuthForm
+                type={"login"}
+                isError={authError || userError}
+                errorMessage="Authentication failed; please try again."
+                isLoading={authLoading || userLoading}
+                loadingMessage="Verifying ..."
+                isSuccess={authSuccess && userSuccess}
+                successMessage="You successfully logged in!"
+                handleFormInput={handleFormInput}
+                handleFormSubmit={handleFormSubmit}
+            />
+            <NavigateText
+                helperText="Need an account?"
+                anchorText="Signup"
+                path="signup"
+            />
+        </>
     );
 }
