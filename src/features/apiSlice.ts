@@ -9,7 +9,7 @@ import { RootState } from "../store";
 import { setAuthToken } from "./authSlice";
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: "https://localhost:8000",
+    baseUrl: "https://localhost:8000/api",
     credentials: "include",
     prepareHeaders: (headers, { getState }) => {
         const authToken = (getState() as RootState).authToken;
