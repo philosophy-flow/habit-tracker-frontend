@@ -6,7 +6,7 @@ import { FormEvent, FormSubmit } from "../types";
 import { useRegisterAccountMutation } from "../features/apiSlice";
 import { RegisterForm } from "../types";
 import { RootState } from "../store";
-import { AuthForm, NavigateText } from "../components";
+import { AuthForm, NavigateText, NavigateIcon } from "../components";
 
 export default function SignupPage() {
     const navigate = useNavigate();
@@ -43,6 +43,7 @@ export default function SignupPage() {
 
     return (
         <>
+            <NavigateIcon navigateTo="" />
             <AuthForm
                 type={"signup"}
                 isError={isError}

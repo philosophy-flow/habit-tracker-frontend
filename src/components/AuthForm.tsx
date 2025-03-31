@@ -36,38 +36,57 @@ export default function AuthForm({
             )}
             {!isSuccess && (
                 <form
-                    className="my-2 rounded border border-[#009963] p-2"
+                    className="my-2 rounded border border-[#009963] px-2"
                     onSubmit={(e) => handleFormSubmit(e)}
                 >
                     {type == "signup" && (
-                        <>
-                            <label htmlFor="email-field">Email:</label>
+                        <div className="relative my-7">
                             <input
-                                className="g-gray-50 focus:border-red focus:ring-red mb-4 block w-full rounded-lg border border-[#009963] p-2.5 text-sm"
+                                className="peer block w-full rounded-lg bg-[#2E2E2E] p-2.5 text-sm text-[#999] focus:ring-2 focus:ring-[#FF4D8D] focus:outline-none"
                                 onChange={(e) => handleFormInput(e)}
                                 id="email-field"
                                 name="email"
                                 type="text"
                             />
-                        </>
+                            <label
+                                className="absolute bottom-0 py-2 pl-3 duration-100 ease-linear peer-focus:bottom-10 peer-focus:p-1 peer-focus:text-sm"
+                                htmlFor="email-field"
+                            >
+                                email
+                            </label>
+                        </div>
                     )}
-                    <label htmlFor="username-field">Username:</label>
-                    <input
-                        className="g-gray-50 focus:border-red focus:ring-red mb-4 block w-full rounded-lg border border-[#009963] p-2.5 text-sm"
-                        onChange={(e) => handleFormInput(e)}
-                        id="username-field"
-                        name="username"
-                        type="text"
-                    />
+                    <div className="relative my-7">
+                        <input
+                            className="peer block w-full rounded-lg bg-[#2E2E2E] p-2.5 text-sm text-[#999] focus:ring-2 focus:ring-[#FF4D8D] focus:outline-none"
+                            onChange={(e) => handleFormInput(e)}
+                            id="username-field"
+                            name="username"
+                            type="text"
+                        />
+                        <label
+                            className="absolute bottom-0 py-2 pl-3 duration-100 ease-linear peer-focus:bottom-10 peer-focus:p-1 peer-focus:text-sm"
+                            htmlFor="username-field"
+                        >
+                            username
+                        </label>
+                    </div>
 
-                    <label htmlFor="password-field">Password:</label>
-                    <input
-                        className="g-gray-50 focus:border-red focus:ring-red mb-4 block w-full rounded-lg border border-[#009963] p-2.5 text-sm"
-                        onChange={(e) => handleFormInput(e)}
-                        id="password-field"
-                        name="password"
-                        type="password"
-                    />
+                    <div className="relative my-7">
+                        <input
+                            className="peer block w-full rounded-lg bg-[#2E2E2E] p-2.5 text-sm text-[#999] focus:ring-2 focus:ring-[#FF4D8D] focus:outline-none"
+                            onChange={(e) => handleFormInput(e)}
+                            id="password-field"
+                            name="password"
+                            type="password"
+                        />
+                        <label
+                            className="absolute bottom-0 py-2 pl-3 duration-100 ease-linear peer-focus:bottom-10 peer-focus:p-1 peer-focus:text-sm"
+                            htmlFor="password-field"
+                        >
+                            password
+                        </label>
+                    </div>
 
                     <Button label="Submit" />
                 </form>

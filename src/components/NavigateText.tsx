@@ -17,7 +17,11 @@ export default function HelperText({
         <>
             <br />
             <p>{helperText}</p>
-            <a onClick={() => navigate(`/${path}`)} className="underline">
+            <a
+                onClick={() => navigate(`/${path}`)}
+                className="underline focus:border-b-2 focus:border-[#FF4D8D] focus:no-underline focus:outline-none"
+                tabIndex={0}
+            >
                 {anchorText}
             </a>
         </>

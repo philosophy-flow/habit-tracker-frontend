@@ -2,8 +2,7 @@ import { useState } from "react";
 import { Navigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 
-import { AuthForm, NavigateText } from "../components";
-
+import { AuthForm, NavigateText, NavigateIcon } from "../components";
 import {
     useAuthenticateAccountMutation,
     setAuthToken,
@@ -63,6 +62,7 @@ export default function LoginPage() {
 
     return (
         <>
+            <NavigateIcon navigateTo="" />
             <AuthForm
                 type={"login"}
                 isError={authError || userError}
