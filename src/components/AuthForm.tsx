@@ -50,7 +50,7 @@ export default function AuthForm({
                                 placeholder=" "
                             />
                             <label
-                                className="absolute bottom-0 py-2 pl-3 duration-100 ease-linear peer-not-placeholder-shown:bottom-10 peer-not-placeholder-shown:p-1 peer-not-placeholder-shown:text-sm peer-focus:bottom-10 peer-focus:p-1 peer-focus:text-sm"
+                                className="absolute bottom-0 py-2 pl-3 text-[#999] duration-100 ease-linear peer-not-placeholder-shown:bottom-10 peer-not-placeholder-shown:p-1 peer-not-placeholder-shown:text-sm peer-focus:bottom-10 peer-focus:p-1 peer-focus:text-sm"
                                 htmlFor="email-field"
                             >
                                 email
@@ -67,7 +67,7 @@ export default function AuthForm({
                             placeholder=" "
                         />
                         <label
-                            className="absolute bottom-0 py-2 pl-3 duration-100 ease-linear peer-not-placeholder-shown:bottom-10 peer-not-placeholder-shown:p-1 peer-not-placeholder-shown:text-sm peer-focus:bottom-10 peer-focus:p-1 peer-focus:text-sm"
+                            className="absolute bottom-0 py-2 pl-3 text-[#999] duration-100 ease-linear peer-not-placeholder-shown:bottom-10 peer-not-placeholder-shown:p-1 peer-not-placeholder-shown:text-sm peer-focus:bottom-10 peer-focus:p-1 peer-focus:text-sm"
                             htmlFor="username-field"
                         >
                             username
@@ -84,7 +84,7 @@ export default function AuthForm({
                             placeholder=" "
                         />
                         <label
-                            className="absolute bottom-0 py-2 pl-3 duration-100 ease-linear peer-not-placeholder-shown:bottom-10 peer-not-placeholder-shown:p-1 peer-not-placeholder-shown:text-sm peer-focus:bottom-10 peer-focus:p-1 peer-focus:text-sm"
+                            className="absolute bottom-0 py-2 pl-3 text-[#999] duration-100 ease-linear peer-not-placeholder-shown:bottom-10 peer-not-placeholder-shown:p-1 peer-not-placeholder-shown:text-sm peer-focus:bottom-10 peer-focus:p-1 peer-focus:text-sm"
                             htmlFor="password-field"
                         >
                             password
