@@ -22,5 +22,11 @@ export type AuthResponse = {
     token_type: string;
 };
 
+export type Habit = {
+    id: string;
+    name: string;
+    dates_completed: string[];
+};
+
 export type FormEvent = React.ChangeEvent<HTMLInputElement>;
 export type FormSubmit = React.FormEvent<HTMLFormElement>;

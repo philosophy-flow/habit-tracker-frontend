@@ -4,7 +4,7 @@ import type {
     FetchArgs,
     FetchBaseQueryError,
 } from "@reduxjs/toolkit/query";
-import { LoginForm, AuthResponse, User, RegisterForm } from "../types";
+import { LoginForm, AuthResponse, User, RegisterForm, Habit } from "../types";
 import { RootState } from "../store";
 import { setAuthToken } from "./authSlice";
 
@@ -84,6 +84,22 @@ export const api = createApi({
         getCurrentUser: builder.query<User, void>({
             query: () => "/user",
         }),
+        addHabit: builder.mutation<Habit[], Habit>({
+            query: () => {
+                return {
+                    url: "/create-habit",
+                    method: "POST",
+                };
+            },
+        }),
+        deleteHabit: builder.mutation<Habit[], Habit>({
+            query: () => {
+                return {
+                    url: "/delete-habit",
+                    method: "DELETE",
+                };
+            },
+        }),
     }),
 });
 
@@ -93,4 +109,5 @@ export const {
     useSignoutAccountMutation,
     useRegisterAccountMutation,
     useLazyGetCurrentUserQuery,
+    useAddHabitMutation,
 } = api;

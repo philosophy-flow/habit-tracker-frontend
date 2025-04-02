@@ -4,6 +4,7 @@ import {
     useRefreshAccountMutation,
     useSignoutAccountMutation,
     useLazyGetCurrentUserQuery,
+    useAddHabitMutation,
 } from "./apiSlice";
 export {
     api,
@@ -11,6 +12,7 @@ export {
     useRefreshAccountMutation,
     useSignoutAccountMutation,
     useLazyGetCurrentUserQuery,
+    useAddHabitMutation,
 };
 
 import userReducer, { setCurrentUser } from "./userSlice";
@@ -18,3 +20,6 @@ export { userReducer, setCurrentUser };
 
 import authReducer, { setAuthToken } from "./authSlice";
 export { authReducer, setAuthToken };
+
+import habitReducer, { setHabits } from "./habitSlice";
+export { habitReducer, setHabits };
