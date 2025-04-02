@@ -84,11 +84,12 @@ export const api = createApi({
         getCurrentUser: builder.query<User, void>({
             query: () => "/user",
         }),
-        addHabit: builder.mutation<Habit[], Habit>({
-            query: () => {
+        addHabit: builder.mutation<Habit[], string>({
+            query: (habitName: string) => {
                 return {
                     url: "/create-habit",
                     method: "POST",
+                    body: { name: habitName },
                 };
             },
         }),
