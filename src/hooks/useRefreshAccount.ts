@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
 
 import {
     setAuthToken,
@@ -15,7 +14,6 @@ export default function useRefreshAccount() {
         useRefreshAccountMutation();
     const [getCurrentUser] = useLazyGetCurrentUserQuery();
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     useEffect(() => {
         async function refresh() {
@@ -31,7 +29,7 @@ export default function useRefreshAccount() {
             }
         }
         refresh();
-    }, [refreshAccount, dispatch, getCurrentUser, navigate]);
+    }, [refreshAccount, dispatch, getCurrentUser]);
 
     return { isLoading, isUninitialized };
 }

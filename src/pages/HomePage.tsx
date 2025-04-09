@@ -1,17 +1,7 @@
 import { Button } from "../components";
-import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
-    const navigate = useNavigate();
-
-    const handleSignupClick = () => {
-        navigate("/signup");
-    };
-
-    const handleLoginClick = () => {
-        navigate("/login");
-    };
-
     return (
         <>
             <h1 className="m-2 text-center text-xl">Habit Tracker</h1>
@@ -24,12 +14,12 @@ export default function HomePage() {
                 life.
             </p>
             <div>
-                <Button label="Sign Up" onClick={handleSignupClick} />
-                <Button
-                    label="Login"
-                    variant="secondary"
-                    onClick={handleLoginClick}
-                />
+                <Link to="/signup">
+                    <Button label="Sign Up" />
+                </Link>
+                <Link to="Login">
+                    <Button label="Login" variant="secondary" />
+                </Link>
             </div>
         </>
     );

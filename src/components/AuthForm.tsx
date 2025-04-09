@@ -36,7 +36,7 @@ export default function AuthForm({
             )}
             {!isSuccess && (
                 <form
-                    className="my-2 rounded border border-[#009963] px-2"
+                    className="my-4 rounded border border-[#009963] px-2"
                     onSubmit={(e) => handleFormSubmit(e)}
                 >
                     {type == "signup" && (

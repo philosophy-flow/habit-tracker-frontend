@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 type NavigateTextProps = {
     helperText: string;
@@ -11,19 +11,16 @@ export default function HelperText({
     helperText,
     anchorText,
 }: NavigateTextProps) {
-    const navigate = useNavigate();
-
     return (
         <>
-            <br />
             <p>{helperText}</p>
-            <a
-                onClick={() => navigate(`/${path}`)}
+            <Link
+                to={`/${path}`}
                 className="underline focus:border-b-2 focus:border-[#FF4D8D] focus:no-underline focus:outline-none"
                 tabIndex={0}
             >
                 {anchorText}
-            </a>
+            </Link>
         </>
     );
 }

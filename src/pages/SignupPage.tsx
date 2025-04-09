@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, Navigate } from "react-router";
+import { useNavigate, Navigate } from "react-router-dom";
 
 import { FormEvent, FormSubmit } from "../types";
 import { useRegisterAccountMutation } from "../features/apiSlice";
@@ -37,11 +37,9 @@ export default function SignupPage() {
         }
     };
 
-    if (authToken) {
-        return <Navigate to="/habits" />;
-    }
-
-    return (
+    return authToken ? (
+        <Navigate to="/habits" />
+    ) : (
         <>
             <NavigateIcon navigateTo="" />
             <AuthForm
