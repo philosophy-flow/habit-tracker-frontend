@@ -11,6 +11,7 @@ import {
     RegisterForm,
     Habit,
     HabitAdd,
+    HabitToggle,
 } from "../types";
 import { RootState } from "../store";
 import { setAuthToken } from "./authSlice";
@@ -111,6 +112,16 @@ export const api = createApi({
                 };
             },
         }),
+        toggleHabitComplete: builder.mutation<{ message: string }, HabitToggle>(
+            {
+                query: (habitData: HabitToggle) => {
+                    return {
+                        url: `/update-habit/${habitData.id}/completions/${habitData.date_completed}`,
+                        method: "PUT",
+                    };
+                },
+            },
+        ),
     }),
 });
 
@@ -123,4 +134,5 @@ export const {
     useLazyGetHabitsQuery,
     useAddHabitMutation,
     useDeleteHabitMutation,
+    useToggleHabitCompleteMutation,
 } = api;

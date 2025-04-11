@@ -34,5 +34,10 @@ export type HabitAdd = {
     frequency: string[];
 };
 
+export type HabitToggle = {
+    id: string;
+    date_completed: string;
+};
+
 export type FormEvent = React.ChangeEvent<HTMLInputElement>;
 export type FormSubmit = React.FormEvent<HTMLFormElement>;
