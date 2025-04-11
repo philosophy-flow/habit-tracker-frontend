@@ -1,16 +1,13 @@
 import { useHandleSignout } from "../hooks";
 import { Button, Header } from "../components";
-import { useAddHabitMutation } from "../features";
+// import { useAddHabitMutation } from "../features";
 
 export default function HabitsPage() {
     const handleSignout = useHandleSignout();
-    const [addHabit] = useAddHabitMutation();
-
-    const testHabit = "test habit";
+    // const [addHabit] = useAddHabitMutation();
 
     const handleAddHabit = async () => {
-        const response = await addHabit(testHabit).unwrap();
-        console.log(response);
+        console.log("adding habit ..");
     };
 
     return (

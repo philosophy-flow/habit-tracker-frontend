@@ -6,13 +6,16 @@ import {
     useRefreshAccountMutation,
     useLazyGetCurrentUserQuery,
     setCurrentUser,
+    useLazyGetHabitsQuery,
+    setHabits,
 } from "../features";
-import { AuthResponse, User } from "../types";
+import { AuthResponse, Habit, User } from "../types";
 
 export default function useRefreshAccount() {
     const [refreshAccount, { isLoading, isUninitialized }] =
         useRefreshAccountMutation();
     const [getCurrentUser] = useLazyGetCurrentUserQuery();
+    const [getHabits] = useLazyGetHabitsQuery();
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -20,8 +23,12 @@ export default function useRefreshAccount() {
             try {
                 const token: AuthResponse = await refreshAccount().unwrap();
                 dispatch(setAuthToken(token));
+
                 const user: User = await getCurrentUser().unwrap();
                 dispatch(setCurrentUser(user));
+
+                const habits: Habit[] = await getHabits().unwrap();
+                dispatch(setHabits(habits));
             } catch {
                 console.log(
                     "Unable to authenticate account; please login again.",
