@@ -36,7 +36,7 @@ export default function useRefreshAccount() {
             }
         }
         refresh();
-    }, [refreshAccount, dispatch, getCurrentUser]);
+    }, [refreshAccount, dispatch, getCurrentUser, getHabits]);
 
     return { isLoading, isUninitialized };
 }

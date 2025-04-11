@@ -7,6 +7,8 @@ import {
     useAuthenticateAccountMutation,
     setAuthToken,
     useLazyGetCurrentUserQuery,
+    useLazyGetHabitsQuery,
+    setHabits,
     setCurrentUser,
 } from "../features";
 import {
@@ -15,6 +17,7 @@ import {
     FormSubmit,
     AuthResponse,
     User,
+    Habit,
 } from "../types.ts";
 import { RootState } from "../store.ts";
 
@@ -28,6 +31,8 @@ export default function LoginPage() {
         getCurrentUser,
         { isLoading: userLoading, isSuccess: userSuccess, isError: userError },
     ] = useLazyGetCurrentUserQuery();
+
+    const [getHabits] = useLazyGetHabitsQuery();
 
     const [formInfo, setFormInfo] = useState({ username: "", password: "" });
     const authToken = useSelector((state: RootState) => state.authToken);
@@ -51,6 +56,9 @@ export default function LoginPage() {
 
             const userResponse: User = await getCurrentUser().unwrap();
             dispatch(setCurrentUser(userResponse));
+
+            const habitResponse: Habit[] = await getHabits().unwrap();
+            dispatch(setHabits(habitResponse));
         } catch (error: unknown) {
             console.log("Login failed: ", error);
         }

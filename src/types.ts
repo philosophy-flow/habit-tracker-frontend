@@ -9,22 +9,12 @@ export type RegisterForm = {
     password: string;
 };
 
-export type UserResponse = {
-    userId: string;
-    email: string;
-    username: string;
-    profileImageUrl: string;
-    accountVerified: boolean;
-    habits: Habit[];
-};
-
 export type User = {
     userId: string;
     email: string;
     username: string;
     profileImageUrl: string;
     accountVerified: boolean;
-    habits: Habit[];
 };
 
 export type AuthResponse = {

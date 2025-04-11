@@ -4,6 +4,7 @@ import {
     useSignoutAccountMutation,
     setAuthToken,
     setCurrentUser,
+    setHabits,
 } from "../features";
 
 export default function useHandleSignout() {
@@ -19,6 +20,7 @@ export default function useHandleSignout() {
                 token_type: "",
             }),
         );
+
         dispatch(
             setCurrentUser({
                 userId: "",
@@ -28,6 +30,8 @@ export default function useHandleSignout() {
                 accountVerified: false,
             }),
         );
+
+        dispatch(setHabits([]));
     };
 
     return handleSignout;
