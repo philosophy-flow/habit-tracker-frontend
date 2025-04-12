@@ -22,8 +22,9 @@ export default function HabitsPage() {
                         <HabitCard
                             key={index}
                             name={habit.name}
-                            datesCompleted={habit.dates_completed}
                             frequency={habit.frequency}
+                            datesCompleted={habit.dates_completed}
+                            createdAt={habit.created_at}
                             toggleComplete={toggleComplete}
                         />
                     </li>

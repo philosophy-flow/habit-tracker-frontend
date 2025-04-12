@@ -1,20 +1,22 @@
 import { useState } from "react";
 
-import { generateCompletionArr } from "../utils";
+import { generateCompletionArr, calculateStreak } from "../utils";
 import StreakVisual from "./StreakVisual";
 
 type HabitCardProps = {
     name: string;
-    datesCompleted: string[];
     frequency: string[];
+    datesCompleted: string[];
+    createdAt: string;
     toggleComplete: () => void;
     handleEdit?: () => void;
 };
 
 export default function HabitCard({
     name = "",
+    frequency,
     datesCompleted = [],
-    frequency = [],
+    createdAt,
     toggleComplete,
     handleEdit,
 }: HabitCardProps) {
@@ -25,8 +27,12 @@ export default function HabitCard({
         toggleComplete();
     };
 
-    // generate bool arr for completions over last 6 days
     const prevSixComplete = generateCompletionArr(datesCompleted, frequency);
+    const completionStreak = calculateStreak(
+        datesCompleted,
+        frequency,
+        createdAt,
+    );
 
     return (
         <article
@@ -79,6 +85,7 @@ export default function HabitCard({
                 <StreakVisual
                     isChecked={isChecked}
                     prevSixComplete={prevSixComplete}
+                    completionStreak={completionStreak}
                 />
             </div>
         </article>

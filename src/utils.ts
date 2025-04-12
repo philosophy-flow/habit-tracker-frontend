@@ -1,4 +1,4 @@
-export const getDateObj = (offset = 0) => {
+const getDateObj = (offset = 0) => {
     const date = new Date();
     date.setDate(date.getDate() - offset);
     const dateStr = date.toISOString().split("T")[0];
@@ -9,7 +9,10 @@ export const getDateObj = (offset = 0) => {
     return { day, dateStr };
 };
 
-export const generateCompletionArr = (dates: string[], frequency: string[]) => {
+export const generateCompletionArr = (
+    datesCompleted: string[],
+    frequency: string[],
+) => {
     const prevSixDays = [];
     const prevSixComplete = [];
 
@@ -20,7 +23,7 @@ export const generateCompletionArr = (dates: string[], frequency: string[]) => {
         if (frequency.includes(prevDay.day)) {
             prevSixDays.push(prevDay);
 
-            const completed = dates.includes(prevDay.dateStr);
+            const completed = datesCompleted.includes(prevDay.dateStr);
             prevSixComplete.push(completed);
         }
 
@@ -28,4 +31,29 @@ export const generateCompletionArr = (dates: string[], frequency: string[]) => {
     }
 
     return prevSixComplete.reverse();
+};
+
+export const calculateStreak = (
+    datesCompleted: string[],
+    frequency: string[],
+    startDate: string,
+) => {
+    let streak = 0;
+    let offsetFromToday = 1;
+    let currentDate = getDateObj(offsetFromToday);
+
+    while (currentDate.dateStr >= startDate) {
+        if (frequency.includes(currentDate.day)) {
+            const completed = datesCompleted.includes(currentDate.dateStr);
+            if (completed) {
+                streak += 1;
+            } else {
+                return streak;
+            }
+        }
+        offsetFromToday++;
+        currentDate = getDateObj(offsetFromToday);
+    }
+
+    return streak;
 };

@@ -27,6 +27,7 @@ export type Habit = {
     name: string;
     frequency: string[];
     dates_completed: string[];
+    created_at: string;
 };
 
 export type HabitAdd = {

@@ -1,16 +1,20 @@
 type StreakVisualProps = {
     isChecked: boolean;
     prevSixComplete: boolean[];
+    completionStreak: number;
 };
 
 export default function StreakVisual({
     prevSixComplete,
     isChecked,
+    completionStreak,
 }: StreakVisualProps) {
+    const totalStreak = isChecked ? completionStreak + 1 : completionStreak;
+
     return (
         <figure>
             <figcaption className="mb-1.5 text-sm leading-[normal] text-[#999]">
-                streak — 2 days
+                streak — {totalStreak} {totalStreak === 1 ? "day" : "days"}
             </figcaption>
             <ul className="flex">
                 {prevSixComplete.map((completed, index) => (
