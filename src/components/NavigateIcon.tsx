@@ -8,7 +8,7 @@ export default function NavigateIcon({ navigateTo }: NavigateIconProps) {
     return (
         <Link
             to={`/${navigateTo}`}
-            className="mb-3 flex w-fit rounded-full focus:ring-2 focus:ring-[#FF4D8D] focus:outline-none"
+            className="mb-3 flex w-fit rounded-full focus-visible:ring-2 focus-visible:ring-[#FF4D8D] focus-visible:outline-none"
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"

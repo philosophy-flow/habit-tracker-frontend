@@ -16,7 +16,7 @@ export default function HelperText({
             <p>{helperText}</p>
             <Link
                 to={`/${path}`}
-                className="underline focus:border-b-2 focus:border-[#FF4D8D] focus:no-underline focus:outline-none"
+                className="underline focus-visible:border-b-2 focus-visible:border-[#FF4D8D] focus-visible:no-underline focus-visible:outline-none"
                 tabIndex={0}
             >
                 {anchorText}

@@ -9,6 +9,10 @@ export default function HabitsPage() {
     const habits = useSelector((state: RootState) => state.habits);
     const handleSignout = useHandleSignout();
 
+    const toggleComplete = () => {
+        console.log("toggling habit");
+    };
+
     return (
         <>
             <Header label="Habits" />
@@ -20,6 +24,7 @@ export default function HabitsPage() {
                             name={habit.name}
                             datesCompleted={habit.dates_completed}
                             frequency={habit.frequency}
+                            toggleComplete={toggleComplete}
                         />
                     </li>
                 ))}
