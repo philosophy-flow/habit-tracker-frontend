@@ -73,6 +73,7 @@ export default function HabitCard({
                 <StreakVisual
                     isChecked={isChecked}
                     datesCompleted={datesCompleted}
+                    frequency={frequency}
                 />
             </div>
         </article>

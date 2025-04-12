@@ -3,14 +3,16 @@ import { generateCompletionArr } from "../utils";
 type StreakVisualProps = {
     isChecked: boolean;
     datesCompleted: string[];
+    frequency: string[];
 };
 
 export default function StreakVisual({
     isChecked,
     datesCompleted = [],
+    frequency = [],
 }: StreakVisualProps) {
     // generate bool arr for completions over last 6 days
-    const prevSixComplete = generateCompletionArr(datesCompleted);
+    const prevSixComplete = generateCompletionArr(datesCompleted, frequency);
 
     return (
         <figure>
