@@ -29,8 +29,8 @@ export default function HabitsPage() {
                     </li>
                 ))}
             </ul>
-            <Button label="+ Add Habit" variant="dark" />
-            <Button onClick={handleSignout} label="Sign Out" />
+            <Button label="+ Add Habit" variant="secondary " />
+            <Button onClick={handleSignout} label="Sign Out" variant="dark" />
         </>
     );
 }

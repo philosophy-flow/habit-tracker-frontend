@@ -1,4 +1,6 @@
 import { useState } from "react";
+
+import { generateCompletionArr } from "../utils";
 import StreakVisual from "./StreakVisual";
 
 type HabitCardProps = {
@@ -23,25 +25,29 @@ export default function HabitCard({
         toggleComplete();
     };
 
+    // generate bool arr for completions over last 6 days
+    const prevSixComplete = generateCompletionArr(datesCompleted, frequency);
+
     return (
         <article
-            className={`my-4 rounded border-2 border-[#2E2E2E] p-2 transition duration-150 ease-out ${isChecked && "border-[#009963]"}`}
+            className={`my-4 rounded border-2 border-[#2E2E2E] p-2 transition duration-150 ease-out ${isChecked && "border-[#009963] shadow-[0_0_10px_rgba(0,153,99,0.4)]"}`}
         >
             <div
                 className={`align-to flex justify-between border-b-2 border-[#2E2E2E] pb-3 transition duration-150 ease-out ${isChecked && "border-[#009963]"}`}
             >
                 <div>
-                    <h2 className="text-lg leading-[normal]">{name}</h2>
+                    <h2
+                        className={`text-lg leading-[normal] ${isChecked ? "line-through" : ""}`}
+                    >
+                        {name}
+                    </h2>
                     <div className="mt-2.5 flex items-center">
                         <nav>
                             <button
                                 onClick={handleEdit}
-                                className="mr-2 rounded border-2 border-[#D35400] px-3 py-1 text-sm focus-visible:border-[#FF4D8D] focus-visible:ring-1 focus-visible:ring-[#FF4D8D] focus-visible:outline-none"
+                                className="mr-2 rounded border-2 border-[#63B3B2] px-3 py-1 text-sm focus-visible:border-[#FF4D8D] focus-visible:ring-1 focus-visible:ring-[#FF4D8D] focus-visible:outline-none"
                             >
                                 edit
-                            </button>
-                            <button className="mr-2 rounded border-2 border-[#8E44AD] px-3 py-1 text-sm focus-visible:border-[#FF4D8D] focus-visible:ring-1 focus-visible:ring-[#FF4D8D] focus-visible:outline-none">
-                                stats
                             </button>
                         </nav>
                     </div>
@@ -72,8 +78,7 @@ export default function HabitCard({
             <div className="pt-2">
                 <StreakVisual
                     isChecked={isChecked}
-                    datesCompleted={datesCompleted}
-                    frequency={frequency}
+                    prevSixComplete={prevSixComplete}
                 />
             </div>
         </article>

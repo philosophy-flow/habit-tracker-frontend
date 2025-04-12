@@ -1,19 +1,12 @@
-import { generateCompletionArr } from "../utils";
-
 type StreakVisualProps = {
     isChecked: boolean;
-    datesCompleted: string[];
-    frequency: string[];
+    prevSixComplete: boolean[];
 };
 
 export default function StreakVisual({
+    prevSixComplete,
     isChecked,
-    datesCompleted = [],
-    frequency = [],
 }: StreakVisualProps) {
-    // generate bool arr for completions over last 6 days
-    const prevSixComplete = generateCompletionArr(datesCompleted, frequency);
-
     return (
         <figure>
             <figcaption className="mb-1.5 text-sm leading-[normal] text-[#999]">
@@ -27,7 +20,7 @@ export default function StreakVisual({
                     ></li>
                 ))}
                 <li
-                    className={`mr-2.5 h-[22px] w-[30px] rounded-lg bg-[#2E2E2E] transition duration-150 ease-out ${isChecked && "bg-[#009963]"}`}
+                    className={`mr-2.5 h-[22px] w-[30px] rounded-lg bg-[#2E2E2E] transition duration-150 ease-out ${isChecked ? "bg-[#009963]" : ""}`}
                 ></li>
             </ul>
         </figure>
