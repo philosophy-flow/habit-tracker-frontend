@@ -45,10 +45,5 @@ export type HabitUpdate = {
     frequency?: string[];
 };
 
-export type AuthInfo = {
-    username: string;
-    password: string;
-};
-
 export type FormEvent = React.ChangeEvent<HTMLInputElement>;
 export type FormSubmit = React.FormEvent<HTMLFormElement>;

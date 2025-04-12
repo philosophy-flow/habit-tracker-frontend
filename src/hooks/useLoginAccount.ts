@@ -8,9 +8,9 @@ import {
     setCurrentUser,
     setHabits,
 } from "../features";
-import { FormSubmit, AuthResponse, User, Habit, AuthInfo } from "../types";
+import { FormSubmit, AuthResponse, User, Habit, LoginForm } from "../types";
 
-export default function useLoginAccount(authInfo: AuthInfo) {
+export default function useLoginAccount(authInfo: LoginForm) {
     const dispatch = useDispatch();
 
     const [

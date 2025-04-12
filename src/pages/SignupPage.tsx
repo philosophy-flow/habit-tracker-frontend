@@ -1,40 +1,28 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
-import { FormEvent, FormSubmit } from "../types";
-import { useRegisterAccountMutation } from "../features/apiSlice";
-import { RegisterForm } from "../types";
+import { RegisterForm, FormEvent } from "../types";
 import { RootState } from "../store";
+import { useSignupAccount } from "../hooks";
 import { AuthForm, NavigateText, NavigateIcon } from "../components";
 
 export default function SignupPage() {
-    const navigate = useNavigate();
-    const authToken = useSelector((state: RootState) => state.authToken);
     const [formInfo, setFormInfo] = useState({
         email: "",
         username: "",
         password: "",
     });
-    const [registerAccount, { isLoading, isSuccess, isError }] =
-        useRegisterAccountMutation();
+    const authToken = useSelector((state: RootState) => state.authToken);
+
+    const { signupAccount, signupLoading, signupSuccess, signupError } =
+        useSignupAccount(formInfo);
 
     const handleFormInput = (e: FormEvent) => {
         setFormInfo((state: RegisterForm) => ({
             ...state,
             [e.target.name]: e.target.value,
         }));
-    };
-
-    const handleFormSubmit = async (e: FormSubmit) => {
-        e.preventDefault();
-        try {
-            const registerResponse = await registerAccount(formInfo).unwrap();
-            console.log(registerResponse);
-            navigate("/confirmation");
-        } catch (error: unknown) {
-            console.log("Account registration failed: ", error);
-        }
     };
 
     return authToken ? (
@@ -44,14 +32,14 @@ export default function SignupPage() {
             <NavigateIcon navigateTo="" />
             <AuthForm
                 type={"signup"}
-                isError={isError}
-                errorMessage="Registration failed; please try again."
-                isLoading={isLoading}
+                isLoading={signupLoading}
+                isSuccess={signupSuccess}
+                isError={signupError}
                 loadingMessage="Registering ..."
-                isSuccess={isSuccess}
                 successMessage="You successfully registered!"
+                errorMessage="Registration failed; please try again."
                 handleFormInput={handleFormInput}
-                handleFormSubmit={handleFormSubmit}
+                handleFormSubmit={signupAccount}
             />
             <NavigateText
                 helperText="Already have an account?"
