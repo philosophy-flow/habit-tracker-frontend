@@ -28,7 +28,7 @@ export default function HabitCard({
             className={`my-4 rounded border-2 border-[#2E2E2E] p-2 transition duration-150 ease-out ${isChecked && "border-[#009963]"}`}
         >
             <div
-                className={`align-to flex justify-between border-b-2 border-[#2E2E2E] pb-2 transition duration-150 ease-out ${isChecked && "border-[#009963]"}`}
+                className={`align-to flex justify-between border-b-2 border-[#2E2E2E] pb-3 transition duration-150 ease-out ${isChecked && "border-[#009963]"}`}
             >
                 <div>
                     <h2 className="text-lg leading-[normal]">{name}</h2>
@@ -70,7 +70,10 @@ export default function HabitCard({
                 </div>
             </div>
             <div className="pt-2">
-                <StreakVisual isChecked={isChecked} />
+                <StreakVisual
+                    isChecked={isChecked}
+                    datesCompleted={datesCompleted}
+                />
             </div>
         </article>
     );
