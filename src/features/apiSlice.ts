@@ -12,6 +12,7 @@ import {
     Habit,
     HabitAdd,
     HabitToggle,
+    HabitUpdate,
 } from "../types";
 import { RootState } from "../store";
 import { setAuthToken } from "./authSlice";
@@ -122,6 +123,18 @@ export const api = createApi({
                 },
             },
         ),
+        updateHabit: builder.mutation<{ message: string }, HabitUpdate>({
+            query: (habitData: HabitUpdate) => {
+                return {
+                    url: `/update-habit/${habitData.id}`,
+                    method: "PATCH",
+                    body: {
+                        name: habitData.name || null,
+                        frequency: habitData.frequency || null,
+                    },
+                };
+            },
+        }),
     }),
 });
 
@@ -135,4 +148,5 @@ export const {
     useAddHabitMutation,
     useDeleteHabitMutation,
     useToggleHabitCompleteMutation,
+    useUpdateHabitMutation,
 } = api;

@@ -39,5 +39,11 @@ export type HabitToggle = {
     date_completed: string;
 };
 
+export type HabitUpdate = {
+    id: string;
+    name?: string;
+    frequency?: string[];
+};
+
 export type FormEvent = React.ChangeEvent<HTMLInputElement>;
 export type FormSubmit = React.FormEvent<HTMLFormElement>;
