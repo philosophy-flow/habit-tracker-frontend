@@ -7,10 +7,12 @@ type ButtonProps = {
 export default function Button({ onClick, label, variant = "" }: ButtonProps) {
     const variantSecondary = variant === "secondary" ? "bg-transparent " : "";
     const variantDark = variant === "dark" ? "border-none bg-[#2E2E2E] " : "";
+    const variantDanger =
+        variant === "danger" ? "border-[#ff4b4b] bg-transparent " : "";
 
     const additionalStyles = !variant
         ? "bg-[#009963]"
-        : variantSecondary + variantDark;
+        : variantSecondary + variantDark + variantDanger;
 
     return (
         <button

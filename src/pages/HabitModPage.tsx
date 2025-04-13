@@ -155,7 +155,13 @@ export default function HabitModPage({ title }: HabitModPageTypes) {
                 onClick={id ? handleUpdateHabit : handleAddHabit}
                 label={`${id ? "Update" : "+ Add"} Habit`}
             />
-            {id && <Button label="Delete Habit" variant="dark" />}
+            {id && (
+                <Button
+                    onClick={() => navigate(`/edit-habit/${id}/delete`)}
+                    label="Delete Habit"
+                    variant="dark"
+                />
+            )}
         </div>
     );
 }

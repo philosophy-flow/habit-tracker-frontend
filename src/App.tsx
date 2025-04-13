@@ -9,6 +9,7 @@ import {
     LoginPage,
     HabitsPage,
     HabitModPage,
+    DeleteHabitPage,
 } from "./pages";
 
 function App() {
@@ -33,6 +34,10 @@ function App() {
                         <Route
                             path="/edit-habit/:id"
                             element={<HabitModPage title="Edit Habit" />}
+                        />
+                        <Route
+                            path="/edit-habit/:id/delete"
+                            element={<DeleteHabitPage />}
                         />
                     </Route>
                 </Route>
