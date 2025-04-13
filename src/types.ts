@@ -23,7 +23,7 @@ export type AuthResponse = {
 };
 
 export type Habit = {
-    id: string;
+    habit_id: string;
     name: string;
     frequency: string[];
     dates_completed: string[];

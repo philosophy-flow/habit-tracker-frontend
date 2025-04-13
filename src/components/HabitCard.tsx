@@ -4,27 +4,31 @@ import { generateCompletionArr, calculateStreak } from "../utils";
 import StreakVisual from "./StreakVisual";
 
 type HabitCardProps = {
+    id: string;
     name: string;
     frequency: string[];
     datesCompleted: string[];
     createdAt: string;
-    toggleComplete: () => void;
+    toggleComplete: (id: string) => void;
     handleEdit?: () => void;
 };
 
 export default function HabitCard({
-    name = "",
+    id,
+    name,
     frequency,
-    datesCompleted = [],
+    datesCompleted,
     createdAt,
     toggleComplete,
     handleEdit,
 }: HabitCardProps) {
-    const [isChecked, setIsChecked] = useState(false);
+    const [isChecked, setIsChecked] = useState(
+        datesCompleted.includes(new Date().toLocaleDateString("en-CA")),
+    );
 
     const handleChecked = () => {
         setIsChecked((prev) => !prev);
-        toggleComplete();
+        toggleComplete(id);
     };
 
     const prevSixComplete = generateCompletionArr(datesCompleted, frequency);
@@ -43,7 +47,7 @@ export default function HabitCard({
             >
                 <div>
                     <h2
-                        className={`text-lg leading-[normal] ${isChecked ? "line-through" : ""}`}
+                        className={`leading-[normal] ${isChecked ? "line-through" : ""}`}
                     >
                         {name}
                     </h2>
