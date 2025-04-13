@@ -16,6 +16,8 @@ type HabitModPageTypes = {
     title: string;
 };
 
+const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
 export default function HabitModPage({ title }: HabitModPageTypes) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -25,7 +27,7 @@ export default function HabitModPage({ title }: HabitModPageTypes) {
 
     const habit = habits.find((h) => h.habit_id === id) || {
         name: "",
-        frequency: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+        frequency: weekdays,
     };
 
     const [habitName, setHabitName] = useState(habit.name);
@@ -51,12 +53,16 @@ export default function HabitModPage({ title }: HabitModPageTypes) {
     };
 
     const handleUpdateHabit = async () => {
+        const finalFrequency =
+            habitFrequencyType === "daily" ? weekdays : habitFrequencyDetail;
+
         if (id) {
             await updateHabit({
                 id,
                 name: habitName,
-                frequency: habitFrequencyDetail,
+                frequency: finalFrequency,
             });
+
             const refreshedHabits = await getHabits().unwrap();
             dispatch(setHabits(refreshedHabits));
         }
@@ -64,7 +70,10 @@ export default function HabitModPage({ title }: HabitModPageTypes) {
     };
 
     const handleAddHabit = async () => {
-        await addHabit({ name: habitName, frequency: habitFrequencyDetail });
+        const finalFrequency =
+            habitFrequencyType === "daily" ? weekdays : habitFrequencyDetail;
+
+        await addHabit({ name: habitName, frequency: finalFrequency });
 
         const refreshedHabits = await getHabits().unwrap();
         dispatch(setHabits(refreshedHabits));
