@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
 
 import { Habit, HabitToggle } from "../types";
 import { RootState } from "../store";
@@ -15,6 +16,8 @@ export default function HabitsPage() {
     const habits = useSelector((state: RootState) => state.habits);
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const handleSignout = useHandleSignout();
     const [getHabits] = useLazyGetHabitsQuery();
     const [toggleHabit, { isSuccess: toggleIsSuccess }] =
@@ -51,11 +54,16 @@ export default function HabitsPage() {
                             datesCompleted={habit.dates_completed}
                             createdAt={habit.created_at}
                             toggleComplete={toggleComplete}
+                            handleEdit={() => navigate("/edit-habit")}
                         />
                     </li>
                 ))}
             </ul>
-            <Button label="+ Add Habit" variant="secondary" />
+            <Button
+                onClick={() => navigate("/add-habit")}
+                label="+ Add Habit"
+                variant="secondary"
+            />
             <Button onClick={handleSignout} label="Sign Out" variant="dark" />
         </>
     );

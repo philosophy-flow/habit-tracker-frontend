@@ -8,6 +8,7 @@ import {
     ConfirmationPage,
     LoginPage,
     HabitsPage,
+    HabitModPage,
 } from "./pages";
 
 function App() {
@@ -25,6 +26,14 @@ function App() {
 
                     <Route element={<ProtectedLayout />}>
                         <Route path="/habits" element={<HabitsPage />} />
+                        <Route
+                            path="/add-habit"
+                            element={<HabitModPage title="Add Habit" />}
+                        />
+                        <Route
+                            path="/edit-habit"
+                            element={<HabitModPage title="Edit Habit" />}
+                        />
                     </Route>
                 </Route>
             </Routes>
