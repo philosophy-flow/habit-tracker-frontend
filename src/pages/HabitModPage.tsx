@@ -4,6 +4,7 @@ import { useParams } from "react-router";
 
 import { RootState } from "../store";
 import { NavigateIcon, Header, Button } from "../components";
+import FrequencyPicker from "../components/FrequencyPicker";
 
 type HabitModPageTypes = {
     title: string;
@@ -21,6 +22,14 @@ export default function HabitModPage({ title }: HabitModPageTypes) {
     const [habitFrequency, setHabitFrequency] = useState(
         habit.frequency.length === 7 ? "daily" : "specific",
     );
+
+    const handleEditHabit = () => {
+        console.log("editing habit ..");
+    };
+
+    const handleAddHabit = () => {
+        console.log("adding new habit ..");
+    };
 
     return (
         <div>
@@ -45,35 +54,58 @@ export default function HabitModPage({ title }: HabitModPageTypes) {
             </div>
             <div className="relative my-7">
                 <label
-                    className="duration-100 ease-linear"
+                    className="mb-2 block text-sm text-[#999] duration-100 ease-linear"
                     htmlFor="frequency-field"
                 >
                     frequency
                 </label>
-                <div>
-                    <label htmlFor="daily">daily</label>
-                    <input
-                        type="radio"
-                        name="frequency"
-                        id="daily"
-                        value="daily"
-                        checked={habitFrequency === "daily"}
-                        onChange={(e) => setHabitFrequency(e.target.value)}
-                    />
+                <div
+                    className="mb-2 flex cursor-pointer justify-between rounded border-2 border-[#2E2E2E] p-2.5"
+                    onClick={() => setHabitFrequency("daily")}
+                >
+                    <label htmlFor="daily" className="text-sm">
+                        daily
+                    </label>
+                    <div className="relative">
+                        <input
+                            type="radio"
+                            name="frequency"
+                            id="daily"
+                            value="daily"
+                            checked={habitFrequency === "daily"}
+                            onChange={(e) => setHabitFrequency(e.target.value)}
+                            className="peer relative h-[20px] w-[20px] appearance-none rounded-full border-2 border-[#2E2E2E] transition duration-150 ease-out checked:border-[#63B3B2] hover:cursor-pointer focus-visible:ring-2 focus-visible:ring-[#FF4D8D] focus-visible:outline-none"
+                        />
+                        <span className="pointer-events-none absolute top-[10px] left-1/2 h-[10px] w-[10px] -translate-x-1/2 -translate-y-1/2 scale-0 rounded-full bg-[#63B3B2] opacity-0 transition duration-200 ease-out peer-checked:scale-100 peer-checked:opacity-100"></span>
+                    </div>
                 </div>
-                <div>
-                    <label htmlFor="daily">specific</label>
-                    <input
-                        type="radio"
-                        name="frequency"
-                        id="specific"
-                        value="specific"
-                        checked={habitFrequency === "specific"}
-                        onChange={(e) => setHabitFrequency(e.target.value)}
-                    />
+                <div
+                    className="mb-4 flex cursor-pointer justify-between rounded border-2 border-[#2E2E2E] p-2.5"
+                    onClick={() => setHabitFrequency("specific")}
+                >
+                    <label htmlFor="specific" className="text-sm">
+                        specific
+                    </label>
+                    <div className="relative">
+                        <input
+                            type="radio"
+                            name="frequency"
+                            id="specific"
+                            value="specific"
+                            checked={habitFrequency === "specific"}
+                            onChange={(e) => setHabitFrequency(e.target.value)}
+                            className="peer relative h-[20px] w-[20px] appearance-none rounded-full border-2 border-[#2E2E2E] transition duration-150 ease-out checked:border-[#63B3B2] hover:cursor-pointer focus-visible:ring-2 focus-visible:ring-[#FF4D8D] focus-visible:outline-none"
+                        />
+                        <span className="pointer-events-none absolute top-[10px] left-1/2 h-[10px] w-[10px] -translate-x-1/2 -translate-y-1/2 scale-0 rounded-full bg-[#63B3B2] opacity-0 transition duration-200 ease-out peer-checked:scale-100 peer-checked:opacity-100"></span>
+                    </div>
                 </div>
+                {habitFrequency === "specific" && <FrequencyPicker />}
             </div>
-            <Button label={`${id ? "Update" : "+ Add"} Habit`} />
+            <Button
+                onClick={id ? handleEditHabit : handleAddHabit}
+                label={`${id ? "Update" : "+ Add"} Habit`}
+            />
+            {id && <Button label="Delete Habit" variant="dark" />}
         </div>
     );
 }
