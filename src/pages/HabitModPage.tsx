@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router";
 
 import {
     useUpdateHabitMutation,
+    useAddHabitMutation,
     useLazyGetHabitsQuery,
     setHabits,
 } from "../features";
@@ -35,6 +36,7 @@ export default function HabitModPage({ title }: HabitModPageTypes) {
         habit.frequency,
     );
 
+    const [addHabit] = useAddHabitMutation();
     const [updateHabit] = useUpdateHabitMutation();
     const [getHabits] = useLazyGetHabitsQuery();
 
@@ -61,8 +63,13 @@ export default function HabitModPage({ title }: HabitModPageTypes) {
         navigate("/habits");
     };
 
-    const handleAddHabit = () => {
-        console.log("adding new habit ..");
+    const handleAddHabit = async () => {
+        await addHabit({ name: habitName, frequency: habitFrequencyDetail });
+
+        const refreshedHabits = await getHabits().unwrap();
+        dispatch(setHabits(refreshedHabits));
+
+        navigate("/habits");
     };
 
     return (
