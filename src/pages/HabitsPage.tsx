@@ -1,16 +1,34 @@
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import { Habit, HabitToggle } from "../types";
 import { RootState } from "../store";
-import { useToggleHabitMutation } from "../features";
+import {
+    useToggleHabitMutation,
+    useLazyGetHabitsQuery,
+    setHabits,
+} from "../features";
 import { useHandleSignout } from "../hooks";
 import { Button, Header, HabitCard } from "../components";
 
 export default function HabitsPage() {
     const habits = useSelector((state: RootState) => state.habits);
 
+    const dispatch = useDispatch();
     const handleSignout = useHandleSignout();
-    const [toggleHabit] = useToggleHabitMutation();
+    const [getHabits] = useLazyGetHabitsQuery();
+    const [toggleHabit, { isSuccess: toggleIsSuccess }] =
+        useToggleHabitMutation();
+
+    useEffect(() => {
+        const refreshHabits = async () => {
+            if (toggleIsSuccess) {
+                const refreshedHabits = await getHabits().unwrap();
+                dispatch(setHabits(refreshedHabits));
+            }
+        };
+        refreshHabits();
+    }, [getHabits, toggleIsSuccess, dispatch]);
 
     const toggleComplete = async (id: string) => {
         const today = new Date().toLocaleDateString("en-CA");

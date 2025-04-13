@@ -1,7 +1,7 @@
 const getDateObj = (offset = 0) => {
     const date = new Date();
     date.setDate(date.getDate() - offset);
-    const dateStr = date.toISOString().split("T")[0];
+    const dateStr = date.toLocaleDateString("en-CA");
 
     const weekdays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
     const day = weekdays[date.getDay()];
