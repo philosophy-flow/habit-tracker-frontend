@@ -30,7 +30,7 @@ export default function useRefreshAccount() {
                 const habits: Habit[] = await getHabits().unwrap();
                 dispatch(setHabits(habits));
             } catch {
-                console.log(
+                console.error(
                     "Unable to authenticate account; please login again.",
                 );
             }

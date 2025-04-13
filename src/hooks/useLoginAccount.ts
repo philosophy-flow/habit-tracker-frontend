@@ -46,7 +46,7 @@ export default function useLoginAccount(authInfo: LoginForm) {
             const habitResponse: Habit[] = await getHabits().unwrap();
             dispatch(setHabits(habitResponse));
         } catch (error: unknown) {
-            console.log("Login failed: ", error);
+            console.error("Login failed: ", error);
         }
     };
 
