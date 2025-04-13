@@ -8,6 +8,7 @@ import {
     useAddHabitMutation,
     useDeleteHabitMutation,
     useToggleHabitMutation,
+    useUpdateHabitMutation,
 } from "./apiSlice";
 export {
     api,
@@ -19,6 +20,7 @@ export {
     useAddHabitMutation,
     useDeleteHabitMutation,
     useToggleHabitMutation,
+    useUpdateHabitMutation,
 };
 
 import userReducer, { setCurrentUser } from "./userSlice";

@@ -1,42 +1,59 @@
-export default function FrequencyPicker() {
+import FrequencyButton from "./FrequencyButton";
+
+type FrequencyPickerProps = {
+    updateFrequency: (day: string) => void;
+    frequency: string[];
+};
+
+export default function FrequencyPicker({
+    updateFrequency,
+    frequency,
+}: FrequencyPickerProps) {
     return (
         <figure>
             <ul className="flex justify-center">
-                <li
-                    className={`mr-2.5 h-[30px] w-[42px] cursor-pointer rounded-lg bg-[#2E2E2E] p-1 text-center transition duration-150 ease-out`}
-                >
-                    S
-                </li>
-                <li
-                    className={`mr-2.5 h-[30px] w-[42px] cursor-pointer rounded-lg bg-[#2E2E2E] p-1 text-center transition duration-150 ease-out`}
-                >
-                    M
-                </li>
-                <li
-                    className={`mr-2.5 h-[30px] w-[42px] cursor-pointer rounded-lg bg-[#2E2E2E] p-1 text-center transition duration-150 ease-out`}
-                >
-                    T
-                </li>
-                <li
-                    className={`mr-2.5 h-[30px] w-[42px] cursor-pointer rounded-lg bg-[#2E2E2E] p-1 text-center transition duration-150 ease-out`}
-                >
-                    W
-                </li>
-                <li
-                    className={`mr-2.5 h-[30px] w-[42px] cursor-pointer rounded-lg bg-[#2E2E2E] p-1 text-center transition duration-150 ease-out`}
-                >
-                    T
-                </li>
-                <li
-                    className={`mr-2.5 h-[30px] w-[42px] cursor-pointer rounded-lg bg-[#2E2E2E] p-1 text-center transition duration-150 ease-out`}
-                >
-                    F
-                </li>
-                <li
-                    className={`h-[30px] w-[42px] cursor-pointer rounded-lg bg-[#2E2E2E] p-1 text-center transition duration-150 ease-out`}
-                >
-                    S
-                </li>
+                <FrequencyButton
+                    updateFrequency={updateFrequency}
+                    frequency={frequency}
+                    day="Sun"
+                    label="S"
+                />
+                <FrequencyButton
+                    updateFrequency={updateFrequency}
+                    frequency={frequency}
+                    day="Mon"
+                    label="M"
+                />
+                <FrequencyButton
+                    updateFrequency={updateFrequency}
+                    frequency={frequency}
+                    day="Tue"
+                    label="T"
+                />
+                <FrequencyButton
+                    updateFrequency={updateFrequency}
+                    frequency={frequency}
+                    day="Wed"
+                    label="W"
+                />
+                <FrequencyButton
+                    updateFrequency={updateFrequency}
+                    frequency={frequency}
+                    day="Thu"
+                    label="T"
+                />
+                <FrequencyButton
+                    updateFrequency={updateFrequency}
+                    frequency={frequency}
+                    day="Fri"
+                    label="F"
+                />
+                <FrequencyButton
+                    updateFrequency={updateFrequency}
+                    frequency={frequency}
+                    day="Sat"
+                    label="S"
+                />
             </ul>
         </figure>
     );

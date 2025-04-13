@@ -1,7 +1,12 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams, useNavigate } from "react-router";
 
+import {
+    useUpdateHabitMutation,
+    useLazyGetHabitsQuery,
+    setHabits,
+} from "../features";
 import { RootState } from "../store";
 import { NavigateIcon, Header, Button } from "../components";
 import FrequencyPicker from "../components/FrequencyPicker";
@@ -11,6 +16,8 @@ type HabitModPageTypes = {
 };
 
 export default function HabitModPage({ title }: HabitModPageTypes) {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { id } = useParams();
     const habits = useSelector((state: RootState) => state.habits);
     const habit = habits.find((h) => h.habit_id === id) || {
@@ -19,12 +26,39 @@ export default function HabitModPage({ title }: HabitModPageTypes) {
     };
 
     const [habitName, setHabitName] = useState(habit.name);
-    const [habitFrequency, setHabitFrequency] = useState(
+    const [habitFrequencyType, setHabitFrequencyType] = useState(
         habit.frequency.length === 7 ? "daily" : "specific",
     );
+    const [habitFrequencyDetail, setHabitFrequencyDetail] = useState(
+        habit.frequency,
+    );
 
-    const handleEditHabit = () => {
+    const [updateHabit] = useUpdateHabitMutation();
+    const [getHabits] = useLazyGetHabitsQuery();
+
+    const handleChangeFrequency = (day: string) => {
+        if (habitFrequencyDetail.includes(day)) {
+            setHabitFrequencyDetail((prev) =>
+                prev.filter((dayIncluded) => dayIncluded !== day),
+            );
+        } else {
+            setHabitFrequencyDetail((prev) => [...prev, day]);
+        }
+    };
+
+    const handleUpdateHabit = async () => {
         console.log("editing habit ..");
+        console.log(habitFrequencyDetail);
+        if (id) {
+            await updateHabit({
+                id,
+                name: habitName,
+                frequency: habitFrequencyDetail,
+            });
+            const refreshedHabits = await getHabits().unwrap();
+            dispatch(setHabits(refreshedHabits));
+        }
+        navigate("/habits");
     };
 
     const handleAddHabit = () => {
@@ -61,7 +95,7 @@ export default function HabitModPage({ title }: HabitModPageTypes) {
                 </label>
                 <div
                     className="mb-2 flex cursor-pointer justify-between rounded border-2 border-[#2E2E2E] p-2.5"
-                    onClick={() => setHabitFrequency("daily")}
+                    onClick={() => setHabitFrequencyType("daily")}
                 >
                     <label htmlFor="daily" className="text-sm">
                         daily
@@ -72,8 +106,10 @@ export default function HabitModPage({ title }: HabitModPageTypes) {
                             name="frequency"
                             id="daily"
                             value="daily"
-                            checked={habitFrequency === "daily"}
-                            onChange={(e) => setHabitFrequency(e.target.value)}
+                            checked={habitFrequencyType === "daily"}
+                            onChange={(e) =>
+                                setHabitFrequencyType(e.target.value)
+                            }
                             className="peer relative h-[20px] w-[20px] appearance-none rounded-full border-2 border-[#2E2E2E] transition duration-150 ease-out checked:border-[#63B3B2] hover:cursor-pointer focus-visible:ring-2 focus-visible:ring-[#FF4D8D] focus-visible:outline-none"
                         />
                         <span className="pointer-events-none absolute top-[10px] left-1/2 h-[10px] w-[10px] -translate-x-1/2 -translate-y-1/2 scale-0 rounded-full bg-[#63B3B2] opacity-0 transition duration-200 ease-out peer-checked:scale-100 peer-checked:opacity-100"></span>
@@ -81,7 +117,7 @@ export default function HabitModPage({ title }: HabitModPageTypes) {
                 </div>
                 <div
                     className="mb-4 flex cursor-pointer justify-between rounded border-2 border-[#2E2E2E] p-2.5"
-                    onClick={() => setHabitFrequency("specific")}
+                    onClick={() => setHabitFrequencyType("specific")}
                 >
                     <label htmlFor="specific" className="text-sm">
                         specific
@@ -92,17 +128,24 @@ export default function HabitModPage({ title }: HabitModPageTypes) {
                             name="frequency"
                             id="specific"
                             value="specific"
-                            checked={habitFrequency === "specific"}
-                            onChange={(e) => setHabitFrequency(e.target.value)}
+                            checked={habitFrequencyType === "specific"}
+                            onChange={(e) =>
+                                setHabitFrequencyType(e.target.value)
+                            }
                             className="peer relative h-[20px] w-[20px] appearance-none rounded-full border-2 border-[#2E2E2E] transition duration-150 ease-out checked:border-[#63B3B2] hover:cursor-pointer focus-visible:ring-2 focus-visible:ring-[#FF4D8D] focus-visible:outline-none"
                         />
                         <span className="pointer-events-none absolute top-[10px] left-1/2 h-[10px] w-[10px] -translate-x-1/2 -translate-y-1/2 scale-0 rounded-full bg-[#63B3B2] opacity-0 transition duration-200 ease-out peer-checked:scale-100 peer-checked:opacity-100"></span>
                     </div>
                 </div>
-                {habitFrequency === "specific" && <FrequencyPicker />}
+                {habitFrequencyType === "specific" && (
+                    <FrequencyPicker
+                        updateFrequency={handleChangeFrequency}
+                        frequency={habitFrequencyDetail}
+                    />
+                )}
             </div>
             <Button
-                onClick={id ? handleEditHabit : handleAddHabit}
+                onClick={id ? handleUpdateHabit : handleAddHabit}
                 label={`${id ? "Update" : "+ Add"} Habit`}
             />
             {id && <Button label="Delete Habit" variant="dark" />}
