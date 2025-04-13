@@ -18,8 +18,10 @@ type HabitModPageTypes = {
 export default function HabitModPage({ title }: HabitModPageTypes) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     const { id } = useParams();
     const habits = useSelector((state: RootState) => state.habits);
+
     const habit = habits.find((h) => h.habit_id === id) || {
         name: "",
         frequency: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
@@ -47,8 +49,6 @@ export default function HabitModPage({ title }: HabitModPageTypes) {
     };
 
     const handleUpdateHabit = async () => {
-        console.log("editing habit ..");
-        console.log(habitFrequencyDetail);
         if (id) {
             await updateHabit({
                 id,
@@ -94,7 +94,7 @@ export default function HabitModPage({ title }: HabitModPageTypes) {
                     frequency
                 </label>
                 <div
-                    className="mb-2 flex cursor-pointer justify-between rounded border-2 border-[#2E2E2E] p-2.5"
+                    className="mb-2 flex cursor-pointer items-center justify-between rounded border-2 border-[#2E2E2E] p-2.5"
                     onClick={() => setHabitFrequencyType("daily")}
                 >
                     <label htmlFor="daily" className="text-sm">
@@ -116,7 +116,7 @@ export default function HabitModPage({ title }: HabitModPageTypes) {
                     </div>
                 </div>
                 <div
-                    className="mb-4 flex cursor-pointer justify-between rounded border-2 border-[#2E2E2E] p-2.5"
+                    className="mb-4 flex cursor-pointer items-center justify-between rounded border-2 border-[#2E2E2E] p-2.5"
                     onClick={() => setHabitFrequencyType("specific")}
                 >
                     <label htmlFor="specific" className="text-sm">
