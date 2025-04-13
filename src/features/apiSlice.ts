@@ -113,16 +113,14 @@ export const api = createApi({
                 };
             },
         }),
-        toggleHabitComplete: builder.mutation<{ message: string }, HabitToggle>(
-            {
-                query: (habitData: HabitToggle) => {
-                    return {
-                        url: `/update-habit/${habitData.id}/completions/${habitData.date_completed}`,
-                        method: "PUT",
-                    };
-                },
+        toggleHabit: builder.mutation<{ message: string }, HabitToggle>({
+            query: (habitData: HabitToggle) => {
+                return {
+                    url: `/update-habit/${habitData.id}/completions/${habitData.date_completed}`,
+                    method: "PUT",
+                };
             },
-        ),
+        }),
         updateHabit: builder.mutation<{ message: string }, HabitUpdate>({
             query: (habitData: HabitUpdate) => {
                 return {
@@ -147,6 +145,6 @@ export const {
     useLazyGetHabitsQuery,
     useAddHabitMutation,
     useDeleteHabitMutation,
-    useToggleHabitCompleteMutation,
+    useToggleHabitMutation,
     useUpdateHabitMutation,
 } = api;

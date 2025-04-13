@@ -7,7 +7,7 @@ import {
     useLazyGetHabitsQuery,
     useAddHabitMutation,
     useDeleteHabitMutation,
-    useToggleHabitCompleteMutation,
+    useToggleHabitMutation,
 } from "./apiSlice";
 export {
     api,
@@ -18,7 +18,7 @@ export {
     useLazyGetHabitsQuery,
     useAddHabitMutation,
     useDeleteHabitMutation,
-    useToggleHabitCompleteMutation,
+    useToggleHabitMutation,
 };
 
 import userReducer, { setCurrentUser } from "./userSlice";
