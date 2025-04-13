@@ -55,7 +55,7 @@ export default function HabitCard({
                         <nav>
                             <button
                                 onClick={handleEdit}
-                                className="mr-2 rounded border-2 border-[#63B3B2] px-3 py-1 text-sm focus-visible:border-[#FF4D8D] focus-visible:ring-1 focus-visible:ring-[#FF4D8D] focus-visible:outline-none"
+                                className="mr-2 rounded border-2 border-[#63B3B2] px-3 py-1 text-sm hover:cursor-pointer focus-visible:border-[#FF4D8D] focus-visible:ring-1 focus-visible:ring-[#FF4D8D] focus-visible:outline-none"
                             >
                                 edit
                             </button>
@@ -67,7 +67,7 @@ export default function HabitCard({
                         type="checkbox"
                         checked={isChecked}
                         onChange={handleChecked}
-                        className="peer relative h-[20px] w-[20px] appearance-none rounded border-2 border-[#2E2E2E] transition duration-150 ease-out checked:bg-[#009963] focus-visible:ring-2 focus-visible:ring-[#FF4D8D] focus-visible:outline-none"
+                        className="peer relative h-[20px] w-[20px] appearance-none rounded border-2 border-[#2E2E2E] transition duration-150 ease-out checked:bg-[#009963] hover:cursor-pointer focus-visible:ring-2 focus-visible:ring-[#FF4D8D] focus-visible:outline-none"
                     />
                     <svg
                         className="pointer-events-none absolute top-[10px] left-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 text-white opacity-0 transition duration-150 ease-out peer-checked:opacity-100"

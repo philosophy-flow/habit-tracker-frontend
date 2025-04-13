@@ -31,8 +31,8 @@ export type Habit = {
 };
 
 export type HabitAdd = {
-    name: string;
-    frequency: string[];
+    name?: string;
+    frequency?: string[];
 };
 
 export type HabitToggle = {
