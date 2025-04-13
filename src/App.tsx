@@ -31,7 +31,7 @@ function App() {
                             element={<HabitModPage title="Add Habit" />}
                         />
                         <Route
-                            path="/edit-habit"
+                            path="/edit-habit/:id"
                             element={<HabitModPage title="Edit Habit" />}
                         />
                     </Route>

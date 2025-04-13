@@ -42,7 +42,7 @@ export default function HabitsPage() {
 
     return (
         <>
-            <Header label="Habits" />
+            <Header label="HABITS" />
             <ul className="my-4">
                 {habits.map((habit: Habit, index: number) => (
                     <li key={index}>
@@ -54,7 +54,9 @@ export default function HabitsPage() {
                             datesCompleted={habit.dates_completed}
                             createdAt={habit.created_at}
                             toggleComplete={toggleComplete}
-                            handleEdit={() => navigate("/edit-habit")}
+                            handleEdit={() =>
+                                navigate(`/edit-habit/${habit.habit_id}`)
+                            }
                         />
                     </li>
                 ))}
