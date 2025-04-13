@@ -12,18 +12,11 @@ import {
 import { AuthResponse, Habit, User } from "../types";
 
 export default function useRefreshAccount() {
-    const [
-        refreshAccount,
-        { isLoading: refreshIsLoading, isUninitialized: refreshIsUnitialized },
-    ] = useRefreshAccountMutation();
-    const [
-        getCurrentUser,
-        { isLoading: userIsLoading, isUninitialized: userIsUnitialized },
-    ] = useLazyGetCurrentUserQuery();
-    const [
-        getHabits,
-        { isLoading: habitIsLoading, isUninitialized: habitIsUninitialized },
-    ] = useLazyGetHabitsQuery();
+    const [refreshAccount, { isLoading: refreshIsLoading, isUninitialized }] =
+        useRefreshAccountMutation();
+    const [getCurrentUser, { isLoading: userIsLoading }] =
+        useLazyGetCurrentUserQuery();
+    const [getHabits, { isLoading: habitIsLoading }] = useLazyGetHabitsQuery();
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -47,8 +40,5 @@ export default function useRefreshAccount() {
     }, [refreshAccount, dispatch, getCurrentUser, getHabits]);
 
     const isLoading = refreshIsLoading || userIsLoading || habitIsLoading;
-    const isUninitialized =
-        refreshIsUnitialized || userIsUnitialized || habitIsUninitialized;
-
     return { isLoading, isUninitialized };
 }
