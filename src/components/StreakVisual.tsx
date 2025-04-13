@@ -2,12 +2,14 @@ type StreakVisualProps = {
     isChecked: boolean;
     prevSixComplete: boolean[];
     completionStreak: number;
+    inactive: boolean;
 };
 
 export default function StreakVisual({
     prevSixComplete,
     isChecked,
     completionStreak,
+    inactive,
 }: StreakVisualProps) {
     const totalStreak = isChecked ? completionStreak + 1 : completionStreak;
     const onFire =
@@ -20,17 +22,19 @@ export default function StreakVisual({
                 streak — {totalStreak} {totalStreak === 1 ? "day" : "days"}{" "}
                 {onFire ? "🔥" : ""}
             </figcaption>
-            <ul className="flex">
-                {prevSixComplete.map((completed, index) => (
+            {!inactive && (
+                <ul className="flex">
+                    {prevSixComplete.map((completed, index) => (
+                        <li
+                            key={index}
+                            className={`mr-2.5 h-[22px] w-[30px] rounded-lg transition duration-150 ease-out ${completed ? "bg-[#009963]" : "bg-[#2E2E2E]"} ${onFire ? "shadow-[0_0_10px_rgba(0,153,99,0.8)]" : ""}`}
+                        ></li>
+                    ))}
                     <li
-                        key={index}
-                        className={`mr-2.5 h-[22px] w-[30px] rounded-lg transition duration-150 ease-out ${completed ? "bg-[#009963]" : "bg-[#2E2E2E]"} ${onFire ? "shadow-[0_0_10px_rgba(0,153,99,0.8)]" : ""}`}
+                        className={`mr-2.5 h-[22px] w-[30px] rounded-lg bg-[#2E2E2E] transition duration-150 ease-out ${isChecked ? "bg-[#009963]" : ""} ${onFire ? "shadow-[0_0_10px_rgba(0,153,99,0.8)]" : ""}`}
                     ></li>
-                ))}
-                <li
-                    className={`mr-2.5 h-[22px] w-[30px] rounded-lg bg-[#2E2E2E] transition duration-150 ease-out ${isChecked ? "bg-[#009963]" : ""} ${onFire ? "shadow-[0_0_10px_rgba(0,153,99,0.8)]" : ""}`}
-                ></li>
-            </ul>
+                </ul>
+            )}
         </figure>
     );
 }

@@ -10,13 +10,26 @@ import {
     setHabits,
 } from "../features";
 import { useHandleSignout } from "../hooks";
-import { Button, Header, HabitCard } from "../components";
+import { getDateObj } from "../utils";
+import { Button, Header, HabitCard, NavigateIcon } from "../components";
 
-export default function HabitsPage() {
-    const habits = useSelector((state: RootState) => state.habits);
+type HabitsPageProps = {
+    inactive?: boolean;
+};
 
+export default function HabitsPage({ inactive = false }: HabitsPageProps) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const habits = useSelector((state: RootState) => state.habits);
+    const today = getDateObj();
+
+    const activeHabits = habits.filter((habit) =>
+        habit.frequency.includes(today.day),
+    );
+    const inactiveHabits = habits.filter(
+        (habit) => !habit.frequency.includes(today.day),
+    );
 
     const handleSignout = useHandleSignout();
     const [getHabits] = useLazyGetHabitsQuery();
@@ -40,11 +53,17 @@ export default function HabitsPage() {
         await toggleHabit(payload).unwrap();
     };
 
+    const pageConfig = {
+        title: inactive ? "INACTIVE HABITS" : "HABITS",
+        renderHabits: inactive ? inactiveHabits : activeHabits,
+    };
+
     return (
         <>
-            <Header label="HABITS" />
+            {inactive && <NavigateIcon navigateTo="habits" />}
+            <Header label={pageConfig.title} />
             <ul className="my-4">
-                {habits.map((habit: Habit, index: number) => (
+                {pageConfig.renderHabits.map((habit: Habit, index: number) => (
                     <li key={index}>
                         <HabitCard
                             key={index}
@@ -53,6 +72,7 @@ export default function HabitsPage() {
                             frequency={habit.frequency}
                             datesCompleted={habit.dates_completed}
                             createdAt={habit.created_at}
+                            inactive={inactive}
                             toggleComplete={toggleComplete}
                             handleEdit={() =>
                                 navigate(`/edit-habit/${habit.habit_id}`)
@@ -61,12 +81,25 @@ export default function HabitsPage() {
                     </li>
                 ))}
             </ul>
-            <Button
-                onClick={() => navigate("/add-habit")}
-                label="+ Add Habit"
-                variant="secondary"
-            />
-            <Button onClick={handleSignout} label="Sign Out" variant="dark" />
+            {!inactive && (
+                <div>
+                    <Button
+                        onClick={() => navigate("/add-habit")}
+                        label="+ Add Habit"
+                    />
+                    <Button
+                        onClick={() => navigate("/habits/inactive")}
+                        label="View Inactive Habits"
+                        variant="tertiary"
+                    />
+                    <hr className="mb-3 border border-[#2E2E2E]" />
+                    <Button
+                        onClick={handleSignout}
+                        label="Sign Out"
+                        variant="dark"
+                    />
+                </div>
+            )}
         </>
     );
 }

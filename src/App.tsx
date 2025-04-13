@@ -28,6 +28,10 @@ function App() {
                     <Route element={<ProtectedLayout />}>
                         <Route path="/habits" element={<HabitsPage />} />
                         <Route
+                            path="/habits/inactive"
+                            element={<HabitsPage inactive={true} />}
+                        />
+                        <Route
                             path="/add-habit"
                             element={<HabitModPage title="Add Habit" />}
                         />

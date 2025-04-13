@@ -1,4 +1,4 @@
-const getDateObj = (offset = 0) => {
+export const getDateObj = (offset = 0) => {
     const date = new Date();
     date.setDate(date.getDate() - offset);
     const dateStr = date.toLocaleDateString("en-CA");
