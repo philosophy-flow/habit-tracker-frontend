@@ -36,23 +36,24 @@ export default function DeleteHabitPage() {
     return (
         <div>
             <Header label="DELETE HABIT" />
-            <p className="my-4">
+            <p className="mt-7 mb-1">
                 Are you sure you want to delete the habit{" "}
                 <span className="font-bold">{habit.name}</span>?
             </p>
-            <strong className="my-4 block font-bold">
+            <strong className="mb-7 block font-bold">
                 This action cannot be undone.
             </strong>
+            <hr className="mb-7 border-2 border-[#2E2E2E]" />
             <div>
-                <Button
-                    label="Delete Habit"
-                    variant="danger"
-                    onClick={handleDeleteHabit}
-                />
                 <Button
                     label="Cancel"
                     variant="dark"
                     onClick={() => navigate(`/edit-habit/${id}`)}
+                />
+                <Button
+                    label="Delete Habit"
+                    variant="danger"
+                    onClick={handleDeleteHabit}
                 />
             </div>
         </div>

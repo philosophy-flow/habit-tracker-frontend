@@ -104,7 +104,7 @@ export default function HabitModPage({ title }: HabitModPageTypes) {
             </div>
             <div className="relative my-7">
                 <label
-                    className="mb-2 block text-sm text-[#999] duration-100 ease-linear"
+                    className="block p-1 text-sm text-[#999] duration-100 ease-linear"
                     htmlFor="frequency-field"
                 >
                     frequency
@@ -160,6 +160,7 @@ export default function HabitModPage({ title }: HabitModPageTypes) {
                     />
                 )}
             </div>
+            <hr className="mb-7 border-2 border-[#2E2E2E]" />
             <Button
                 onClick={id ? handleUpdateHabit : handleAddHabit}
                 label={`${id ? "Update" : "+ Add"} Habit`}

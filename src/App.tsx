@@ -33,11 +33,11 @@ function App() {
                         />
                         <Route
                             path="/add-habit"
-                            element={<HabitModPage title="Add Habit" />}
+                            element={<HabitModPage title="ADD HABIT" />}
                         />
                         <Route
                             path="/edit-habit/:id"
-                            element={<HabitModPage title="Edit Habit" />}
+                            element={<HabitModPage title="EDIT HABIT" />}
                         />
                         <Route
                             path="/edit-habit/:id/delete"

@@ -35,10 +35,7 @@ export default function AuthForm({
                 </div>
             )}
             {!isSuccess && (
-                <form
-                    className="my-4 rounded border border-[#009963] px-2"
-                    onSubmit={(e) => handleFormSubmit(e)}
-                >
+                <form onSubmit={(e) => handleFormSubmit(e)}>
                     {type == "signup" && (
                         <div className="relative my-7">
                             <input
@@ -90,8 +87,8 @@ export default function AuthForm({
                             password
                         </label>
                     </div>
-
-                    <Button label="Submit" />
+                    <hr className="mb-7 border-2 border-[#2E2E2E]" />
+                    <Button label="Submit" className="mb-7" />
                 </form>
             )}
 

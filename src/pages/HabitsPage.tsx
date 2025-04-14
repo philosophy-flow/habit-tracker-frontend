@@ -62,7 +62,7 @@ export default function HabitsPage({ inactive = false }: HabitsPageProps) {
         <>
             {inactive && <NavigateIcon navigateTo="habits" />}
             <Header label={pageConfig.title} />
-            <ul className="my-4">
+            <ul className="my-7">
                 {pageConfig.renderHabits.map((habit: Habit, index: number) => (
                     <li key={index}>
                         <HabitCard
@@ -91,8 +91,9 @@ export default function HabitsPage({ inactive = false }: HabitsPageProps) {
                         onClick={() => navigate("/habits/inactive")}
                         label="View Inactive Habits"
                         variant="tertiary"
+                        className="mb-7"
                     />
-                    <hr className="mb-3 border border-[#2E2E2E]" />
+                    <hr className="mb-7 border-2 border-[#2E2E2E]" />
                     <Button
                         onClick={handleSignout}
                         label="Sign Out"

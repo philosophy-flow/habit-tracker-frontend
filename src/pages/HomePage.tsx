@@ -4,15 +4,11 @@ import { Link } from "react-router-dom";
 export default function HomePage() {
     return (
         <>
-            <h1 className="m-2 text-center text-xl">Habit Tracker</h1>
-            <figure>
-                <img className="w-full" src="/home-image.jpg" alt="" />
-            </figure>
-            <h2 className="m-2 text-center text-xl">Get it together.</h2>
-            <p className="mb-4 text-center">
-                Track your habits and goals. Be consistent and build a better
-                life.
+            <h1 className="font-['Unbounded'] text-2xl">↑Habitsior</h1>
+            <p className="mb-7 pl-1 font-['Unbounded'] text-sm leading-normal font-light italic">
+                Ever upwards.
             </p>
+            <hr className="mb-7 border-2 border-[#2E2E2E]" />
             <div>
                 <Link to="/signup">
                     <Button label="Sign Up" />
