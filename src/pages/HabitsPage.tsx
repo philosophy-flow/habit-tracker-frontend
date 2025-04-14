@@ -82,12 +82,9 @@ export default function HabitsPage({ inactive = false }: HabitsPageProps) {
             </ul>
             {!inactive && (
                 <div>
+                    <Button to="/add-habit" label="+ Add Habit" />
                     <Button
-                        onClick={() => navigate("/add-habit")}
-                        label="+ Add Habit"
-                    />
-                    <Button
-                        onClick={() => navigate("/habits/inactive")}
+                        to="/habits/inactive"
                         label="View Inactive Habits"
                         variant="tertiary"
                         className="mb-7"

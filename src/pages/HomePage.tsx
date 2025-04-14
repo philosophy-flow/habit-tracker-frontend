@@ -1,5 +1,4 @@
 import { Button } from "../components";
-import { Link } from "react-router-dom";
 
 export default function HomePage() {
     return (
@@ -10,12 +9,8 @@ export default function HomePage() {
             </p>
             <hr className="mb-7 border-2 border-[#2E2E2E]" />
             <div>
-                <Link to="/signup">
-                    <Button label="Sign Up" />
-                </Link>
-                <Link to="Login">
-                    <Button label="Login" variant="secondary" />
-                </Link>
+                <Button label="Sign Up" to="/signup" />
+                <Button label="Login" variant="secondary" to="/login" />
             </div>
         </>
     );
