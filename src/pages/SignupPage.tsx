@@ -40,6 +40,7 @@ export default function SignupPage() {
                 errorMessage="Registration failed; please try again."
                 handleFormInput={handleFormInput}
                 handleFormSubmit={signupAccount}
+                formInfo={formInfo}
             />
             <NavigateText
                 helperText="Already have an account?"

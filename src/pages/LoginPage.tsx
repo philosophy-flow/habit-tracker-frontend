@@ -36,6 +36,7 @@ export default function LoginPage() {
                 errorMessage="Authentication failed; please try again."
                 handleFormInput={handleFormInput}
                 handleFormSubmit={handleLogin}
+                formInfo={formInfo}
             />
             <NavigateText
                 helperText="Need an account?"

@@ -13,6 +13,11 @@ type AuthFormProps = {
     successMessage: string;
     handleFormInput: (e: FormEvent) => void;
     handleFormSubmit: (e: FormSubmit) => void;
+    formInfo: {
+        email?: string;
+        username: string;
+        password: string;
+    };
 };
 
 export default function AuthForm({
@@ -25,6 +30,7 @@ export default function AuthForm({
     successMessage,
     handleFormInput,
     handleFormSubmit,
+    formInfo,
 }: AuthFormProps) {
     return (
         <>
@@ -43,6 +49,7 @@ export default function AuthForm({
                                 onChange={(e) => handleFormInput(e)}
                                 id="email-field"
                                 name="email"
+                                value={formInfo.email}
                                 type="text"
                                 placeholder=" "
                             />
@@ -60,6 +67,7 @@ export default function AuthForm({
                             onChange={(e) => handleFormInput(e)}
                             id="username-field"
                             name="username"
+                            value={formInfo.username}
                             type="text"
                             placeholder=" "
                         />
@@ -77,6 +85,7 @@ export default function AuthForm({
                             onChange={(e) => handleFormInput(e)}
                             id="password-field"
                             name="password"
+                            value={formInfo.password}
                             type="password"
                             placeholder=" "
                         />
