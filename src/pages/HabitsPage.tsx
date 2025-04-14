@@ -63,10 +63,9 @@ export default function HabitsPage({ inactive = false }: HabitsPageProps) {
             {inactive && <NavigateIcon navigateTo="habits" />}
             <Header label={pageConfig.title} />
             <ul className="my-7">
-                {pageConfig.renderHabits.map((habit: Habit, index: number) => (
-                    <li key={index}>
+                {pageConfig.renderHabits.map((habit: Habit) => (
+                    <li key={habit.habit_id}>
                         <HabitCard
-                            key={index}
                             id={habit.habit_id}
                             name={habit.name}
                             frequency={habit.frequency}

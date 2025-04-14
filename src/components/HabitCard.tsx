@@ -45,7 +45,7 @@ export default function HabitCard({
             className={`mb-4 rounded border-2 border-[#2E2E2E] p-2 transition duration-150 ease-out ${isChecked && "border-[#009963] shadow-[0_0_10px_rgba(0,153,99,0.4)]"}`}
         >
             <div
-                className={`align-to flex justify-between pb-3 transition duration-150 ease-out ${isChecked && "border-[#009963]"}`}
+                className={`align-to flex justify-between pb-3 transition duration-150 ease-out`}
             >
                 <div>
                     <h2
