@@ -20,9 +20,7 @@ const usernameSchema = z
         message: "Username cannot start or end with underscore",
     });
 
-const passwordSchema = z
-    .string()
-    .min(8, "Password must contain at least 8 characters");
+const passwordSchema = z.string();
 
 export default function useLoginAccount(
     authInfo: LoginForm,

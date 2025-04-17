@@ -8,22 +8,6 @@ import { RootState } from "../store.ts";
 import { useLoginAccount } from "../hooks";
 import { AuthForm, NavigateText, NavigateIcon } from "../components";
 
-// const emailSchema = z
-//     .string()
-//     .min(5, "Email is too short")
-//     .max(254, "Email is too long")
-//     .email("Invalid email format")
-//     .refine((val) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val), {
-//         message: "Email must include a domain (e.g. .com)",
-//     });
-
-// const passwordSchema = z
-//     .string()
-//     .min(8, "Password must contain at least 8 characters")
-//     .regex(/[A-Z]/, "Must contain an uppercase letter")
-//     .regex(/[0-9]/, "Must contain a number")
-//     .regex(/[^A-Za-z0-9]/, "Must contain a symbol");
-
 const usernameSchema = z
     .string()
     .min(3, "Username must be at least 3 characters")
@@ -33,9 +17,7 @@ const usernameSchema = z
         message: "Username cannot start or end with underscore",
     });
 
-const passwordSchema = z
-    .string()
-    .min(8, "Password must contain at least 8 characters");
+const passwordSchema = z.string();
 
 export default function LoginPage() {
     const [formInfo, setFormInfo] = useState({ username: "", password: "" });

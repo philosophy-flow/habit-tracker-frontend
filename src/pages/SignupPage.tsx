@@ -1,11 +1,37 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
+import { z } from "zod";
 
-import { RegisterForm, FormEvent } from "../types";
+import { RegisterForm, FormEvent, InputBlur } from "../types";
 import { RootState } from "../store";
 import { useSignupAccount } from "../hooks";
 import { AuthForm, NavigateText, NavigateIcon } from "../components";
+
+const emailSchema = z
+    .string()
+    .min(5, "Email is too short")
+    .max(254, "Email is too long")
+    .email("Invalid email format")
+    .refine((val: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val), {
+        message: "Email must include a domain (e.g. .com)",
+    });
+
+const usernameSchema = z
+    .string()
+    .min(3, "Username must be at least 3 characters")
+    .max(20, "Username must be at most 20 characters")
+    .regex(/^[a-zA-Z0-9_]+$/, "Only letters, numbers, and underscores allowed")
+    .refine((val: string) => !/^_/.test(val) && !/_$/.test(val), {
+        message: "Username cannot start or end with underscore",
+    });
+
+const passwordSchema = z
+    .string()
+    .min(8, "Password must contain at least 8 characters")
+    .regex(/[A-Z]/, "Must contain an uppercase letter")
+    .regex(/[0-9]/, "Must contain a number")
+    .regex(/[^A-Za-z0-9]/, "Must contain a symbol");
 
 export default function SignupPage() {
     const [formInfo, setFormInfo] = useState({
@@ -14,13 +40,14 @@ export default function SignupPage() {
         password: "",
     });
     const [formError, setFormError] = useState({
+        emailError: "",
         usernameError: "",
         passwordError: "",
     });
     const authToken = useSelector((state: RootState) => state.authToken);
 
     const { signupAccount, signupLoading, signupSuccess, signupError } =
-        useSignupAccount(formInfo);
+        useSignupAccount(formInfo, formError, setFormError);
 
     const handleInputChange = (e: FormEvent) => {
         setFormInfo((state: RegisterForm) => ({
@@ -29,8 +56,35 @@ export default function SignupPage() {
         }));
     };
 
-    const handleInputBlur = () => {
-        setFormError((prev) => ({ ...prev }));
+    const handleInputBlur = (e: InputBlur) => {
+        switch (e.target.name) {
+            case "email":
+                setFormError((prev) => ({
+                    ...prev,
+                    emailError:
+                        emailSchema.safeParse(formInfo.email).error?.errors[0]
+                            ?.message || "",
+                }));
+                break;
+            case "username":
+                setFormError((prev) => ({
+                    ...prev,
+                    usernameError:
+                        usernameSchema.safeParse(formInfo.username).error
+                            ?.errors[0]?.message || "",
+                }));
+                break;
+            case "password":
+                setFormError((prev) => ({
+                    ...prev,
+                    passwordError:
+                        passwordSchema.safeParse(formInfo.password).error
+                            ?.errors[0]?.message || "",
+                }));
+                break;
+            default:
+                return;
+        }
     };
 
     return authToken ? (
