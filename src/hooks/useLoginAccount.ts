@@ -1,4 +1,5 @@
 import { useDispatch } from "react-redux";
+import { z } from "zod";
 
 import {
     useAuthenticateAccountMutation,
@@ -10,7 +11,29 @@ import {
 } from "../features";
 import { FormSubmit, AuthResponse, User, Habit, LoginForm } from "../types";
 
-export default function useLoginAccount(authInfo: LoginForm) {
+const usernameSchema = z
+    .string()
+    .min(3, "Username must be at least 3 characters")
+    .max(20, "Username must be at most 20 characters")
+    .regex(/^[a-zA-Z0-9_]+$/, "Only letters, numbers, and underscores allowed")
+    .refine((val) => !/^_/.test(val) && !/_$/.test(val), {
+        message: "Username cannot start or end with underscore",
+    });
+
+const passwordSchema = z
+    .string()
+    .min(8, "Password must contain at least 8 characters");
+
+export default function useLoginAccount(
+    authInfo: LoginForm,
+    formError: { usernameError: string; passwordError: string },
+    setFormError: React.Dispatch<
+        React.SetStateAction<{
+            usernameError: string;
+            passwordError: string;
+        }>
+    >,
+) {
     const dispatch = useDispatch();
 
     const [
@@ -35,18 +58,34 @@ export default function useLoginAccount(authInfo: LoginForm) {
     const handleLogin = async (e: FormSubmit) => {
         e.preventDefault();
 
-        try {
-            const authResponse: AuthResponse =
-                await authenticateAccount(authInfo).unwrap();
-            dispatch(setAuthToken(authResponse));
+        setFormError((prev) => ({
+            ...prev,
+            usernameError:
+                usernameSchema.safeParse(authInfo.username).error?.errors[0]
+                    ?.message || "",
+        }));
 
-            const userResponse: User = await getCurrentUser().unwrap();
-            dispatch(setCurrentUser(userResponse));
+        setFormError((prev) => ({
+            ...prev,
+            passwordError:
+                passwordSchema.safeParse(authInfo.password).error?.errors[0]
+                    ?.message || "",
+        }));
 
-            const habitResponse: Habit[] = await getHabits().unwrap();
-            dispatch(setHabits(habitResponse));
-        } catch (error: unknown) {
-            console.error("Login failed: ", error);
+        if (!formError.usernameError && !formError.passwordError) {
+            try {
+                const authResponse: AuthResponse =
+                    await authenticateAccount(authInfo).unwrap();
+                dispatch(setAuthToken(authResponse));
+
+                const userResponse: User = await getCurrentUser().unwrap();
+                dispatch(setCurrentUser(userResponse));
+
+                const habitResponse: Habit[] = await getHabits().unwrap();
+                dispatch(setHabits(habitResponse));
+            } catch (error: unknown) {
+                console.error("Login failed: ", error);
+            }
         }
     };
 

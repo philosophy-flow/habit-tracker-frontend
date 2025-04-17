@@ -13,16 +13,24 @@ export default function SignupPage() {
         username: "",
         password: "",
     });
+    const [formError, setFormError] = useState({
+        usernameError: "",
+        passwordError: "",
+    });
     const authToken = useSelector((state: RootState) => state.authToken);
 
     const { signupAccount, signupLoading, signupSuccess, signupError } =
         useSignupAccount(formInfo);
 
-    const handleFormInput = (e: FormEvent) => {
+    const handleInputChange = (e: FormEvent) => {
         setFormInfo((state: RegisterForm) => ({
             ...state,
             [e.target.name]: e.target.value,
         }));
+    };
+
+    const handleInputBlur = () => {
+        setFormError((prev) => ({ ...prev }));
     };
 
     return authToken ? (
@@ -38,9 +46,11 @@ export default function SignupPage() {
                 loadingMessage="Registering ..."
                 successMessage="You successfully registered!"
                 errorMessage="Registration failed; please try again."
-                handleFormInput={handleFormInput}
+                handleInputChange={handleInputChange}
+                handleInputBlur={handleInputBlur}
                 handleFormSubmit={signupAccount}
                 formInfo={formInfo}
+                formError={formError}
             />
             <NavigateText
                 helperText="Already have an account?"

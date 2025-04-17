@@ -47,4 +47,5 @@ export type HabitUpdate = {
 };
 
 export type FormEvent = React.ChangeEvent<HTMLInputElement>;
+export type InputBlur = React.FocusEvent<HTMLInputElement>;
 export type FormSubmit = React.FormEvent<HTMLFormElement>;
