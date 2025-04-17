@@ -10,11 +10,11 @@ import { AuthForm, NavigateText, NavigateIcon } from "../components";
 
 const usernameSchema = z
     .string()
-    .min(3, "Username must be at least 3 characters")
-    .max(20, "Username must be at most 20 characters")
+    .min(3, "username must be at least 3 characters")
+    .max(20, "username must be at most 20 characters")
     .regex(/^[a-zA-Z0-9_]+$/, "Only letters, numbers, and underscores allowed")
     .refine((val) => !/^_/.test(val) && !/_$/.test(val), {
-        message: "Username cannot start or end with underscore",
+        message: "username cannot start or end with underscore",
     });
 
 const passwordSchema = z.string();

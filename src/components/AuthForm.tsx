@@ -43,55 +43,59 @@ export default function AuthForm({
     return (
         <>
             <Header label={type.toUpperCase()} />
-            {isError && (
-                <div>
-                    <p>{errorMessage}</p>
-                </div>
-            )}
             {!isSuccess && (
                 <form onSubmit={(e) => handleFormSubmit(e)}>
                     {type == "signup" && (
-                        <div className="relative my-7">
+                        <div className="my-7">
+                            <div className="relative">
+                                <input
+                                    className="peer block w-full rounded-lg bg-[#2E2E2E] p-2.5 text-sm focus-visible:ring-2 focus-visible:ring-[#FF4D8D] focus-visible:outline-none"
+                                    onChange={(e) => handleInputChange(e)}
+                                    onBlur={(e) => handleInputBlur(e)}
+                                    id="email-field"
+                                    name="email"
+                                    value={formInfo.email}
+                                    type="text"
+                                    placeholder=" "
+                                />
+                                <label
+                                    className="absolute bottom-0 py-2 pl-3 text-[#999] duration-100 ease-linear peer-not-placeholder-shown:bottom-10 peer-not-placeholder-shown:p-1 peer-not-placeholder-shown:text-sm peer-focus-visible:bottom-10 peer-focus-visible:p-1 peer-focus-visible:text-sm"
+                                    htmlFor="email-field"
+                                >
+                                    email
+                                </label>
+                            </div>
+                            {formError.emailError && (
+                                <small className="p-1 text-red-500">
+                                    {formError.emailError}
+                                </small>
+                            )}
+                        </div>
+                    )}
+
+                    <div className="my-7">
+                        <div className="relative">
                             <input
                                 className="peer block w-full rounded-lg bg-[#2E2E2E] p-2.5 text-sm focus-visible:ring-2 focus-visible:ring-[#FF4D8D] focus-visible:outline-none"
                                 onChange={(e) => handleInputChange(e)}
                                 onBlur={(e) => handleInputBlur(e)}
-                                id="email-field"
-                                name="email"
-                                value={formInfo.email}
+                                id="username-field"
+                                name="username"
+                                value={formInfo.username}
                                 type="text"
                                 placeholder=" "
                             />
                             <label
                                 className="absolute bottom-0 py-2 pl-3 text-[#999] duration-100 ease-linear peer-not-placeholder-shown:bottom-10 peer-not-placeholder-shown:p-1 peer-not-placeholder-shown:text-sm peer-focus-visible:bottom-10 peer-focus-visible:p-1 peer-focus-visible:text-sm"
-                                htmlFor="email-field"
+                                htmlFor="username-field"
                             >
-                                email
+                                username
                             </label>
-                            {formError.emailError && (
-                                <div>{formError.emailError}</div>
-                            )}
                         </div>
-                    )}
-                    <div className="relative my-7">
-                        <input
-                            className="peer block w-full rounded-lg bg-[#2E2E2E] p-2.5 text-sm focus-visible:ring-2 focus-visible:ring-[#FF4D8D] focus-visible:outline-none"
-                            onChange={(e) => handleInputChange(e)}
-                            onBlur={(e) => handleInputBlur(e)}
-                            id="username-field"
-                            name="username"
-                            value={formInfo.username}
-                            type="text"
-                            placeholder=" "
-                        />
-                        <label
-                            className="absolute bottom-0 py-2 pl-3 text-[#999] duration-100 ease-linear peer-not-placeholder-shown:bottom-10 peer-not-placeholder-shown:p-1 peer-not-placeholder-shown:text-sm peer-focus-visible:bottom-10 peer-focus-visible:p-1 peer-focus-visible:text-sm"
-                            htmlFor="username-field"
-                        >
-                            username
-                        </label>
                         {formError.usernameError && (
-                            <div>{formError.usernameError}</div>
+                            <small className="p-1 text-red-500">
+                                {formError.usernameError}
+                            </small>
                         )}
                     </div>
 
@@ -115,11 +119,21 @@ export default function AuthForm({
                             </label>
                         </div>
                         {formError.passwordError && (
-                            <div>{formError.passwordError}</div>
+                            <small className="p-1 text-red-500">
+                                {formError.passwordError}
+                            </small>
                         )}
                     </div>
+
                     <hr className="mb-7 border-2 border-[#2E2E2E]" />
-                    <Button label="Submit" className="mb-7" />
+
+                    <Button label="Submit" className="mb-2" />
+
+                    {isError && (
+                        <div className="mb-7">
+                            <p>{errorMessage}</p>
+                        </div>
+                    )}
                 </form>
             )}
 
