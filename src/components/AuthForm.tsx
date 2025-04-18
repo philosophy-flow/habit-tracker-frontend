@@ -69,7 +69,9 @@ export default function AuthForm({
                     />
                     <hr className="mb-7 border-2 border-[#2E2E2E]" />
                     <Button label="Submit" className="mb-2" />
-                    {authState.isError && <p>{authState.errorMessage}</p>}
+                    {authState.isError && (
+                        <p className="text-red-500">{authState.errorMessage}</p>
+                    )}
                     {authState.isLoading && <p>{authState.loadingMessage}</p>}
                     {authState.isSuccess && <p>{authState.successMessage}</p>}
                 </form>

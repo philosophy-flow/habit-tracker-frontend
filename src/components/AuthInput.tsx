@@ -31,8 +31,8 @@ export default function AuthInput({
                     placeholder=" "
                 />
                 <label
-                    className="absolute bottom-0 py-2 pl-3 text-[#999] duration-100 ease-linear peer-not-placeholder-shown:bottom-10 peer-not-placeholder-shown:p-1 peer-not-placeholder-shown:text-sm peer-focus-visible:bottom-10 peer-focus-visible:p-1 peer-focus-visible:text-sm"
-                    htmlFor="email-field"
+                    className="absolute bottom-0 cursor-text py-2 pl-3 text-[#999] duration-100 ease-linear peer-not-placeholder-shown:bottom-10 peer-not-placeholder-shown:p-1 peer-not-placeholder-shown:text-sm peer-focus-visible:bottom-10 peer-focus-visible:p-1 peer-focus-visible:text-sm"
+                    htmlFor={`${name}-field`}
                 >
                     {name}
                 </label>
