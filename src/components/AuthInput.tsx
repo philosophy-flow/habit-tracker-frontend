@@ -7,6 +7,7 @@ type AuthInputProps = {
         handleChange: (e: FormEvent) => void;
         handleBlur: (e: InputBlur) => void;
     };
+    type?: string;
 };
 
 export default function AuthInput({
@@ -14,6 +15,7 @@ export default function AuthInput({
     value,
     error,
     handlers,
+    type = "text",
 }: AuthInputProps) {
     return (
         <div className="my-7">
@@ -25,7 +27,7 @@ export default function AuthInput({
                     id={`${name}-field`}
                     name={name}
                     value={value}
-                    type="text"
+                    type={type}
                     placeholder=" "
                 />
                 <label

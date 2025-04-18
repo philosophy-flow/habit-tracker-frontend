@@ -65,6 +65,7 @@ export default function AuthForm({
                             handleChange: handlers.handleInputChange,
                             handleBlur: handlers.handleInputBlur,
                         }}
+                        type="password"
                     />
                     <hr className="mb-7 border-2 border-[#2E2E2E]" />
                     <Button label="Submit" className="mb-2" />
