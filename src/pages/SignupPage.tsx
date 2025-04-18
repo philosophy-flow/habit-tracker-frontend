@@ -62,6 +62,20 @@ export default function SignupPage() {
         }
     };
 
+    const authState = {
+        isLoading: signupLoading,
+        isSuccess: signupSuccess,
+        isError: signupError,
+        loadingMessage: "Submitting ...",
+        successMessage: "You successfully created an account.",
+        errorMessage: "Account creation failed; please try again.",
+    };
+    const handlers = {
+        handleInputChange,
+        handleInputBlur,
+        handleFormSubmit: signupAccount,
+    };
+
     return authToken ? (
         <Navigate to="/habits" />
     ) : (
@@ -69,17 +83,9 @@ export default function SignupPage() {
             <NavigateIcon navigateTo="" />
             <AuthForm
                 type={"signup"}
-                isLoading={signupLoading}
-                isSuccess={signupSuccess}
-                isError={signupError}
-                loadingMessage="Registering ..."
-                successMessage="You successfully registered!"
-                errorMessage="Registration failed; please try again."
-                handleInputChange={handleInputChange}
-                handleInputBlur={handleInputBlur}
-                handleFormSubmit={signupAccount}
-                formInfo={formInfo}
-                formError={formError}
+                authState={authState}
+                formState={{ ...formInfo, ...formError }}
+                handlers={handlers}
             />
             <NavigateText
                 helperText="Already have an account?"
