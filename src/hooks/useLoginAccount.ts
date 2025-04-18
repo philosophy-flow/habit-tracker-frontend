@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
-import { z } from "zod";
 
+import { FormSubmit, AuthResponse, User, Habit, LoginForm } from "../types";
+import { usernameSchema, passwordSchemaLogin } from "../schemas";
 import {
     useAuthenticateAccountMutation,
     useLazyGetCurrentUserQuery,
@@ -9,18 +10,6 @@ import {
     setCurrentUser,
     setHabits,
 } from "../features";
-import { FormSubmit, AuthResponse, User, Habit, LoginForm } from "../types";
-
-const usernameSchema = z
-    .string()
-    .min(3, "username must be at least 3 characters")
-    .max(20, "username must be at most 20 characters")
-    .regex(/^[a-zA-Z0-9_]+$/, "Only letters, numbers, and underscores allowed")
-    .refine((val) => !/^_/.test(val) && !/_$/.test(val), {
-        message: "username cannot start or end with underscore",
-    });
-
-const passwordSchema = z.string();
 
 export default function useLoginAccount(
     authInfo: LoginForm,
@@ -66,8 +55,8 @@ export default function useLoginAccount(
         setFormError((prev) => ({
             ...prev,
             passwordError:
-                passwordSchema.safeParse(authInfo.password).error?.errors[0]
-                    ?.message || "",
+                passwordSchemaLogin.safeParse(authInfo.password).error
+                    ?.errors[0]?.message || "",
         }));
 
         if (!formError.usernameError && !formError.passwordError) {

@@ -1,23 +1,12 @@
 import { useState } from "react";
 import { Navigate } from "react-router";
 import { useSelector } from "react-redux";
-import { z } from "zod";
 
 import { LoginForm, FormEvent, InputBlur } from "../types.ts";
+import { usernameSchema, passwordSchemaLogin } from "../schemas.ts";
 import { RootState } from "../store.ts";
 import { useLoginAccount } from "../hooks";
 import { AuthForm, NavigateText, NavigateIcon } from "../components";
-
-const usernameSchema = z
-    .string()
-    .min(3, "username must be at least 3 characters")
-    .max(20, "username must be at most 20 characters")
-    .regex(/^[a-zA-Z0-9_]+$/, "Only letters, numbers, and underscores allowed")
-    .refine((val) => !/^_/.test(val) && !/_$/.test(val), {
-        message: "username cannot start or end with underscore",
-    });
-
-const passwordSchema = z.string();
 
 export default function LoginPage() {
     const [formInfo, setFormInfo] = useState({ username: "", password: "" });
@@ -51,7 +40,7 @@ export default function LoginPage() {
                 setFormError((prev) => ({
                     ...prev,
                     passwordError:
-                        passwordSchema.safeParse(formInfo.password).error
+                        passwordSchemaLogin.safeParse(formInfo.password).error
                             ?.errors[0]?.message || "",
                 }));
                 break;
