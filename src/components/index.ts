@@ -5,6 +5,7 @@ import AuthForm from "./AuthForm";
 import AuthInput from "./AuthInput";
 import NavigateIcon from "./NavigateIcon";
 import HabitCard from "./HabitCard";
+import FrequencyPicker from "./FrequencyPicker";
 
 export {
     Button,
@@ -14,4 +15,5 @@ export {
     AuthInput,
     NavigateIcon,
     HabitCard,
+    FrequencyPicker,
 };

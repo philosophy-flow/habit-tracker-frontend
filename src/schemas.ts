@@ -13,7 +13,7 @@ export const usernameSchema = z
     .string()
     .min(3, "username must be at least 3 characters")
     .max(20, "username must be at most 20 characters")
-    .regex(/^[a-zA-Z0-9_]+$/, "Only letters, numbers, and underscores allowed")
+    .regex(/^[a-zA-Z0-9_]+$/, "only letters, numbers, and underscores allowed")
     .refine((val: string) => !/^_/.test(val) && !/_$/.test(val), {
         message: "username cannot start or end with underscore",
     });
@@ -25,4 +25,15 @@ export const passwordSchemaSignup = z
     .regex(/[0-9]/, "must contain a number")
     .regex(/[^A-Za-z0-9]/, "must contain a symbol");
 
-export const passwordSchemaLogin = z.string();
+export const passwordSchemaLogin = z
+    .string()
+    .min(1, "password cannot be blank");
+
+export const habitSchema = z
+    .string()
+    .min(1, "habit cannot be blank")
+    .max(20, "habit must be at most 20 characters")
+    .regex(/^[a-zA-Z0-9_]+$/, "only letters, numbers, and underscores allowed")
+    .refine((val: string) => !/^_/.test(val) && !/_$/.test(val), {
+        message: "habit cannot start or end with underscore",
+    });

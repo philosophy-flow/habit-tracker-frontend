@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router";
 
+import { FormEvent, InputBlur } from "../types.ts";
+import { habitSchema } from "../schemas";
 import {
     useUpdateHabitMutation,
     useAddHabitMutation,
@@ -9,8 +11,13 @@ import {
     setHabits,
 } from "../features";
 import { RootState } from "../store";
-import { NavigateIcon, Header, Button } from "../components";
-import FrequencyPicker from "../components/FrequencyPicker";
+import {
+    NavigateIcon,
+    Header,
+    Button,
+    FrequencyPicker,
+    AuthInput,
+} from "../components";
 
 type HabitModPageTypes = {
     title: string;
@@ -31,6 +38,7 @@ export default function HabitModPage({ title }: HabitModPageTypes) {
     };
 
     const [habitName, setHabitName] = useState(habit.name);
+    const [nameError, setNameError] = useState("");
     const [habitFrequencyType, setHabitFrequencyType] = useState(
         habit.frequency.length === 7 ? "daily" : "specific",
     );
@@ -41,6 +49,19 @@ export default function HabitModPage({ title }: HabitModPageTypes) {
     const [addHabit] = useAddHabitMutation();
     const [updateHabit] = useUpdateHabitMutation();
     const [getHabits] = useLazyGetHabitsQuery();
+
+    const handleNameChange = (e: FormEvent) => {
+        e.preventDefault();
+        setHabitName(e.target.value);
+    };
+
+    const handleNameBlur = (e: InputBlur) => {
+        e.preventDefault();
+        setNameError(
+            habitSchema.safeParse(e.target.value).error?.errors[0]?.message ||
+                "",
+        );
+    };
 
     const handleChangeFrequency = (day: string) => {
         if (habitFrequencyDetail.includes(day)) {
@@ -53,20 +74,28 @@ export default function HabitModPage({ title }: HabitModPageTypes) {
     };
 
     const handleUpdateHabit = async () => {
-        const finalFrequency =
-            habitFrequencyType === "daily" ? weekdays : habitFrequencyDetail;
+        setNameError(
+            habitSchema.safeParse(habitName).error?.errors[0]?.message || "",
+        );
 
-        if (id) {
-            await updateHabit({
-                id,
-                name: habitName,
-                frequency: finalFrequency,
-            });
+        if (!nameError) {
+            const finalFrequency =
+                habitFrequencyType === "daily"
+                    ? weekdays
+                    : habitFrequencyDetail;
 
-            const refreshedHabits = await getHabits().unwrap();
-            dispatch(setHabits(refreshedHabits));
+            if (id) {
+                await updateHabit({
+                    id,
+                    name: habitName,
+                    frequency: finalFrequency,
+                });
+
+                const refreshedHabits = await getHabits().unwrap();
+                dispatch(setHabits(refreshedHabits));
+            }
+            navigate("/habits");
         }
-        navigate("/habits");
     };
 
     const handleAddHabit = async () => {
@@ -85,23 +114,15 @@ export default function HabitModPage({ title }: HabitModPageTypes) {
         <div>
             <NavigateIcon navigateTo="habits" />
             <Header label={title} />
-            <div className="relative my-7">
-                <input
-                    className="peer block w-full rounded-lg bg-[#2E2E2E] p-2.5 text-sm focus-visible:ring-2 focus-visible:ring-[#FF4D8D] focus-visible:outline-none"
-                    id="habit-name-field"
-                    name="habit-name"
-                    type="text"
-                    placeholder=" "
-                    onChange={(e) => setHabitName(e.target.value)}
-                    value={habitName}
-                />
-                <label
-                    className="absolute bottom-0 py-2 pl-3 text-[#999] duration-100 ease-linear peer-not-placeholder-shown:bottom-10 peer-not-placeholder-shown:p-1 peer-not-placeholder-shown:text-sm peer-focus-visible:bottom-10 peer-focus-visible:p-1 peer-focus-visible:text-sm"
-                    htmlFor="habit-name-field"
-                >
-                    name
-                </label>
-            </div>
+            <AuthInput
+                name="name"
+                value={habitName}
+                error={nameError}
+                handlers={{
+                    handleChange: handleNameChange,
+                    handleBlur: handleNameBlur,
+                }}
+            />
             <div className="relative my-7">
                 <label
                     className="block p-1 text-sm text-[#999] duration-100 ease-linear"
