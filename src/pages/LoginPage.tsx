@@ -49,6 +49,20 @@ export default function LoginPage() {
         }
     };
 
+    const authState = {
+        isLoading: loginLoading,
+        isSuccess: loginSuccess,
+        isError: loginError,
+        loadingMessage: "Verifying ...",
+        successMessage: "You successfully logged in.",
+        errorMessage: "Authentication failed; please try again.",
+    };
+    const handlers = {
+        handleInputChange,
+        handleInputBlur,
+        handleFormSubmit: handleLogin,
+    };
+
     return authToken ? (
         <Navigate to="/habits" />
     ) : (
@@ -56,17 +70,9 @@ export default function LoginPage() {
             <NavigateIcon navigateTo="" />
             <AuthForm
                 type={"login"}
-                isLoading={loginLoading}
-                isSuccess={loginSuccess}
-                isError={loginError}
-                loadingMessage="Verifying ..."
-                successMessage="You successfully logged in!"
-                errorMessage="Authentication failed; please try again."
-                handleInputChange={handleInputChange}
-                handleInputBlur={handleInputBlur}
-                handleFormSubmit={handleLogin}
-                formInfo={formInfo}
-                formError={formError}
+                authState={authState}
+                formState={{ ...formInfo, ...formError }}
+                handlers={handlers}
             />
             <NavigateText
                 helperText="Need an account?"

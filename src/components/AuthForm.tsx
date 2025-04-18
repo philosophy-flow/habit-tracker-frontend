@@ -1,60 +1,54 @@
 import { FormEvent, FormSubmit, InputBlur } from "../types";
 import { Button, Header } from "./";
 
-type AuthFormType = "signup" | "login";
-
 type AuthFormProps = {
-    type: AuthFormType;
-    isError: boolean;
-    errorMessage: string;
-    isLoading: boolean;
-    loadingMessage: string;
-    isSuccess: boolean;
-    successMessage: string;
-    handleInputChange: (e: FormEvent) => void;
-    handleInputBlur: (e: InputBlur) => void;
-    handleFormSubmit: (e: FormSubmit) => void;
-    formInfo: {
+    type: "signup" | "login";
+    authState: {
+        isLoading: boolean;
+        loadingMessage: string;
+        isSuccess: boolean;
+        successMessage: string;
+        isError: boolean;
+        errorMessage: string;
+    };
+    formState: {
         email?: string;
         username: string;
         password: string;
-    };
-    formError: {
         emailError?: string;
         usernameError: string;
         passwordError: string;
+    };
+    handlers: {
+        handleInputChange: (e: FormEvent) => void;
+        handleInputBlur: (e: InputBlur) => void;
+        handleFormSubmit: (e: FormSubmit) => void;
     };
 };
 
 export default function AuthForm({
     type,
-    isError,
-    errorMessage,
-    isLoading,
-    loadingMessage,
-    isSuccess,
-    successMessage,
-    handleInputChange,
-    handleInputBlur,
-    handleFormSubmit,
-    formInfo,
-    formError,
+    authState,
+    formState,
+    handlers,
 }: AuthFormProps) {
     return (
         <>
             <Header label={type.toUpperCase()} />
-            {!isSuccess && (
-                <form onSubmit={(e) => handleFormSubmit(e)}>
+            {!authState.isSuccess && (
+                <form onSubmit={(e) => handlers.handleFormSubmit(e)}>
                     {type == "signup" && (
                         <div className="my-7">
                             <div className="relative">
                                 <input
                                     className="peer block w-full rounded-lg bg-[#2E2E2E] p-2.5 text-sm focus-visible:ring-2 focus-visible:ring-[#FF4D8D] focus-visible:outline-none"
-                                    onChange={(e) => handleInputChange(e)}
-                                    onBlur={(e) => handleInputBlur(e)}
+                                    onChange={(e) =>
+                                        handlers.handleInputChange(e)
+                                    }
+                                    onBlur={(e) => handlers.handleInputBlur(e)}
                                     id="email-field"
                                     name="email"
-                                    value={formInfo.email}
+                                    value={formState.email}
                                     type="text"
                                     placeholder=" "
                                 />
@@ -65,9 +59,9 @@ export default function AuthForm({
                                     email
                                 </label>
                             </div>
-                            {formError.emailError && (
+                            {formState.emailError && (
                                 <small className="p-1 text-red-500">
-                                    {formError.emailError}
+                                    {formState.emailError}
                                 </small>
                             )}
                         </div>
@@ -77,11 +71,11 @@ export default function AuthForm({
                         <div className="relative">
                             <input
                                 className="peer block w-full rounded-lg bg-[#2E2E2E] p-2.5 text-sm focus-visible:ring-2 focus-visible:ring-[#FF4D8D] focus-visible:outline-none"
-                                onChange={(e) => handleInputChange(e)}
-                                onBlur={(e) => handleInputBlur(e)}
+                                onChange={(e) => handlers.handleInputChange(e)}
+                                onBlur={(e) => handlers.handleInputBlur(e)}
                                 id="username-field"
                                 name="username"
-                                value={formInfo.username}
+                                value={formState.username}
                                 type="text"
                                 placeholder=" "
                             />
@@ -92,9 +86,9 @@ export default function AuthForm({
                                 username
                             </label>
                         </div>
-                        {formError.usernameError && (
+                        {formState.usernameError && (
                             <small className="p-1 text-red-500">
-                                {formError.usernameError}
+                                {formState.usernameError}
                             </small>
                         )}
                     </div>
@@ -103,11 +97,11 @@ export default function AuthForm({
                         <div className="relative">
                             <input
                                 className="peer block w-full rounded-lg bg-[#2E2E2E] p-2.5 text-sm focus-visible:ring-2 focus-visible:ring-[#FF4D8D] focus-visible:outline-none"
-                                onChange={(e) => handleInputChange(e)}
-                                onBlur={(e) => handleInputBlur(e)}
+                                onChange={(e) => handlers.handleInputChange(e)}
+                                onBlur={(e) => handlers.handleInputBlur(e)}
                                 id="password-field"
                                 name="password"
-                                value={formInfo.password}
+                                value={formState.password}
                                 type="password"
                                 placeholder=" "
                             />
@@ -118,9 +112,9 @@ export default function AuthForm({
                                 password
                             </label>
                         </div>
-                        {formError.passwordError && (
+                        {formState.passwordError && (
                             <small className="p-1 text-red-500">
-                                {formError.passwordError}
+                                {formState.passwordError}
                             </small>
                         )}
                     </div>
@@ -129,24 +123,10 @@ export default function AuthForm({
 
                     <Button label="Submit" className="mb-2" />
 
-                    {isError && (
-                        <div className="mb-7">
-                            <p>{errorMessage}</p>
-                        </div>
-                    )}
+                    {authState.isError && <p>{authState.errorMessage}</p>}
+                    {authState.isLoading && <p>{authState.loadingMessage}</p>}
+                    {authState.isSuccess && <p>{authState.successMessage}</p>}
                 </form>
-            )}
-
-            {isLoading && (
-                <div>
-                    <p>{loadingMessage}</p>
-                </div>
-            )}
-
-            {isSuccess && (
-                <div>
-                    <p>{successMessage}</p>
-                </div>
             )}
         </>
     );
