@@ -32,8 +32,4 @@ export const passwordSchemaLogin = z
 export const habitSchema = z
     .string()
     .min(1, "habit cannot be blank")
-    .max(20, "habit must be at most 20 characters")
-    .regex(/^[a-zA-Z0-9_]+$/, "only letters, numbers, and underscores allowed")
-    .refine((val: string) => !/^_/.test(val) && !/_$/.test(val), {
-        message: "habit cannot start or end with underscore",
-    });
+    .max(30, "habit must be at most 20 characters");

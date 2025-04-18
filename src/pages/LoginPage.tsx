@@ -17,7 +17,7 @@ export default function LoginPage() {
     const authToken = useSelector((state: RootState) => state.authToken);
 
     const { handleLogin, loginLoading, loginSuccess, loginError } =
-        useLoginAccount(formInfo, formError, setFormError);
+        useLoginAccount(formInfo, setFormError);
 
     const handleInputChange = (e: FormEvent) => {
         setFormInfo((state: LoginForm) => ({

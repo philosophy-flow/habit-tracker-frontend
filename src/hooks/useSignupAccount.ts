@@ -6,11 +6,6 @@ import { useRegisterAccountMutation } from "../features/apiSlice";
 
 export default function useSignupAccount(
     formInfo: RegisterForm,
-    formError: {
-        emailError: string;
-        usernameError: string;
-        passwordError: string;
-    },
     setFormError: React.Dispatch<
         React.SetStateAction<{
             emailError: string;
@@ -33,38 +28,25 @@ export default function useSignupAccount(
     const signupAccount = async (e: FormSubmit) => {
         e.preventDefault();
 
-        setFormError((prev) => ({
-            ...prev,
-            emailError:
-                emailSchema.safeParse(formInfo.email).error?.errors[0]
-                    ?.message || "",
-        }));
+        const emailError =
+            emailSchema.safeParse(formInfo.email).error?.errors[0]?.message ||
+            "";
+        const usernameError =
+            usernameSchema.safeParse(formInfo.username).error?.errors[0]
+                ?.message || "";
+        const passwordError =
+            passwordSchemaSignup.safeParse(formInfo.password).error?.errors[0]
+                ?.message || "";
 
-        setFormError((prev) => ({
-            ...prev,
-            usernameError:
-                usernameSchema.safeParse(formInfo.username).error?.errors[0]
-                    ?.message || "",
-        }));
+        setFormError({ emailError, usernameError, passwordError });
 
-        setFormError((prev) => ({
-            ...prev,
-            passwordError:
-                passwordSchemaSignup.safeParse(formInfo.password).error
-                    ?.errors[0]?.message || "",
-        }));
+        if (emailError || usernameError || passwordError) return;
 
-        if (
-            !formError.emailError &&
-            !formError.usernameError &&
-            !formError.passwordError
-        ) {
-            try {
-                await registerAccount(formInfo).unwrap();
-                navigate("/confirmation");
-            } catch (error: unknown) {
-                console.error("Account registration failed: ", error);
-            }
+        try {
+            await registerAccount(formInfo).unwrap();
+            navigate("/confirmation");
+        } catch (error: unknown) {
+            console.error("Account registration failed: ", error);
         }
     };
 

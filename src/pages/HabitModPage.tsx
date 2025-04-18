@@ -74,31 +74,37 @@ export default function HabitModPage({ title }: HabitModPageTypes) {
     };
 
     const handleUpdateHabit = async () => {
-        setNameError(
-            habitSchema.safeParse(habitName).error?.errors[0]?.message || "",
-        );
+        const zodNameError =
+            habitSchema.safeParse(habitName).error?.errors[0]?.message || "";
 
-        if (!nameError) {
-            const finalFrequency =
-                habitFrequencyType === "daily"
-                    ? weekdays
-                    : habitFrequencyDetail;
+        setNameError(zodNameError);
 
-            if (id) {
-                await updateHabit({
-                    id,
-                    name: habitName,
-                    frequency: finalFrequency,
-                });
+        if (zodNameError) return;
 
-                const refreshedHabits = await getHabits().unwrap();
-                dispatch(setHabits(refreshedHabits));
-            }
-            navigate("/habits");
+        const finalFrequency =
+            habitFrequencyType === "daily" ? weekdays : habitFrequencyDetail;
+
+        if (id) {
+            await updateHabit({
+                id,
+                name: habitName,
+                frequency: finalFrequency,
+            });
+
+            const refreshedHabits = await getHabits().unwrap();
+            dispatch(setHabits(refreshedHabits));
         }
+        navigate("/habits");
     };
 
     const handleAddHabit = async () => {
+        const zodNameError =
+            habitSchema.safeParse(habitName).error?.errors[0]?.message || "";
+
+        setNameError(zodNameError);
+
+        if (zodNameError) return;
+
         const finalFrequency =
             habitFrequencyType === "daily" ? weekdays : habitFrequencyDetail;
 

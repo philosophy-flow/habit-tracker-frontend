@@ -13,7 +13,6 @@ import {
 
 export default function useLoginAccount(
     authInfo: LoginForm,
-    formError: { usernameError: string; passwordError: string },
     setFormError: React.Dispatch<
         React.SetStateAction<{
             usernameError: string;
@@ -45,34 +44,29 @@ export default function useLoginAccount(
     const handleLogin = async (e: FormSubmit) => {
         e.preventDefault();
 
-        setFormError((prev) => ({
-            ...prev,
-            usernameError:
-                usernameSchema.safeParse(authInfo.username).error?.errors[0]
-                    ?.message || "",
-        }));
+        const usernameError =
+            usernameSchema.safeParse(authInfo.username).error?.errors[0]
+                ?.message || "";
+        const passwordError =
+            passwordSchemaLogin.safeParse(authInfo.password).error?.errors[0]
+                ?.message || "";
 
-        setFormError((prev) => ({
-            ...prev,
-            passwordError:
-                passwordSchemaLogin.safeParse(authInfo.password).error
-                    ?.errors[0]?.message || "",
-        }));
+        setFormError({ usernameError, passwordError });
 
-        if (!formError.usernameError && !formError.passwordError) {
-            try {
-                const authResponse: AuthResponse =
-                    await authenticateAccount(authInfo).unwrap();
-                dispatch(setAuthToken(authResponse));
+        if (usernameError || passwordError) return;
 
-                const userResponse: User = await getCurrentUser().unwrap();
-                dispatch(setCurrentUser(userResponse));
+        try {
+            const authResponse: AuthResponse =
+                await authenticateAccount(authInfo).unwrap();
+            dispatch(setAuthToken(authResponse));
 
-                const habitResponse: Habit[] = await getHabits().unwrap();
-                dispatch(setHabits(habitResponse));
-            } catch (error: unknown) {
-                console.error("Login failed: ", error);
-            }
+            const userResponse: User = await getCurrentUser().unwrap();
+            dispatch(setCurrentUser(userResponse));
+
+            const habitResponse: Habit[] = await getHabits().unwrap();
+            dispatch(setHabits(habitResponse));
+        } catch (error: unknown) {
+            console.error("Login failed: ", error);
         }
     };
 

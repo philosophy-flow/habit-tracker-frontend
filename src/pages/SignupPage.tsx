@@ -22,7 +22,7 @@ export default function SignupPage() {
     const authToken = useSelector((state: RootState) => state.authToken);
 
     const { signupAccount, signupLoading, signupSuccess, signupError } =
-        useSignupAccount(formInfo, formError, setFormError);
+        useSignupAccount(formInfo, setFormError);
 
     const handleInputChange = (e: FormEvent) => {
         setFormInfo((state: RegisterForm) => ({
