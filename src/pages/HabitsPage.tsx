@@ -21,6 +21,9 @@ export default function HabitsPage({ inactive = false }: HabitsPageProps) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const username = useSelector(
+        (state: RootState) => state.currentUser.username,
+    );
     const habits = useSelector((state: RootState) => state.habits);
     const today = getDateObj();
 
@@ -54,7 +57,9 @@ export default function HabitsPage({ inactive = false }: HabitsPageProps) {
     };
 
     const pageConfig = {
-        title: inactive ? "INACTIVE HABITS" : "HABITS",
+        title: inactive
+            ? "INACTIVE HABITS"
+            : `${username.toUpperCase()}'S HABITS`,
         renderHabits: inactive ? inactiveHabits : activeHabits,
     };
 
@@ -62,24 +67,30 @@ export default function HabitsPage({ inactive = false }: HabitsPageProps) {
         <>
             {inactive && <NavigateIcon navigateTo="habits" />}
             <Header label={pageConfig.title} />
-            <ul className="my-7">
-                {pageConfig.renderHabits.map((habit: Habit) => (
-                    <li key={habit.habit_id}>
-                        <HabitCard
-                            id={habit.habit_id}
-                            name={habit.name}
-                            frequency={habit.frequency}
-                            datesCompleted={habit.dates_completed}
-                            createdAt={habit.created_at}
-                            inactive={inactive}
-                            toggleComplete={toggleComplete}
-                            handleEdit={() =>
-                                navigate(`/edit-habit/${habit.habit_id}`)
-                            }
-                        />
-                    </li>
-                ))}
-            </ul>
+            <hr className="my-7 border-2 border-[#2E2E2E]" />
+            {pageConfig.renderHabits.length > 0 ? (
+                <ul className="mb-7">
+                    {pageConfig.renderHabits.map((habit: Habit) => (
+                        <li key={habit.habit_id}>
+                            <HabitCard
+                                id={habit.habit_id}
+                                name={habit.name}
+                                frequency={habit.frequency}
+                                datesCompleted={habit.dates_completed}
+                                createdAt={habit.created_at}
+                                inactive={inactive}
+                                toggleComplete={toggleComplete}
+                                handleEdit={() =>
+                                    navigate(`/edit-habit/${habit.habit_id}`)
+                                }
+                            />
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <p className="mb-7">No habits to display.</p>
+            )}
+
             {!inactive && (
                 <div>
                     <Button to="/add-habit" label="+ Add Habit" />
