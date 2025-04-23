@@ -13,11 +13,13 @@ export default function SignupPage() {
         email: "",
         username: "",
         password: "",
+        passwordVerify: "",
     });
     const [formError, setFormError] = useState({
         emailError: "",
         usernameError: "",
         passwordError: "",
+        passwordVerifyError: "",
     });
     const authToken = useSelector((state: RootState) => state.authToken);
 
@@ -55,6 +57,15 @@ export default function SignupPage() {
                     passwordError:
                         passwordSchemaSignup.safeParse(formInfo.password).error
                             ?.errors[0]?.message || "",
+                }));
+                break;
+            case "passwordVerify":
+                setFormError((prev) => ({
+                    ...prev,
+                    passwordVerifyError:
+                        formInfo.password === formInfo.passwordVerify
+                            ? ""
+                            : "passwords must match",
                 }));
                 break;
             default:

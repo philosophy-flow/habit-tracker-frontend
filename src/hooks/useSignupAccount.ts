@@ -11,6 +11,7 @@ export default function useSignupAccount(
             emailError: string;
             usernameError: string;
             passwordError: string;
+            passwordVerifyError: string;
         }>
     >,
 ) {
@@ -38,9 +39,20 @@ export default function useSignupAccount(
             passwordSchemaSignup.safeParse(formInfo.password).error?.errors[0]
                 ?.message || "";
 
-        setFormError({ emailError, usernameError, passwordError });
+        const passwordVerifyError =
+            formInfo.password === formInfo.passwordVerify
+                ? ""
+                : "passwords must match";
 
-        if (emailError || usernameError || passwordError) return;
+        setFormError({
+            emailError,
+            usernameError,
+            passwordError,
+            passwordVerifyError,
+        });
+
+        if (emailError || usernameError || passwordError || passwordVerifyError)
+            return;
 
         try {
             await registerAccount(formInfo).unwrap();

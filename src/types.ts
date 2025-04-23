@@ -7,6 +7,7 @@ export type RegisterForm = {
     email: string;
     username: string;
     password: string;
+    passwordVerify: string;
 };
 
 export type User = {

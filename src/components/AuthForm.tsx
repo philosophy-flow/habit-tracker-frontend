@@ -15,9 +15,11 @@ type AuthFormProps = {
         email?: string;
         username: string;
         password: string;
+        passwordVerify?: string;
         emailError?: string;
         usernameError: string;
         passwordError: string;
+        passwordVerifyError?: string;
     };
     handlers: {
         handleInputChange: (e: FormEvent) => void;
@@ -67,6 +69,17 @@ export default function AuthForm({
                         }}
                         type="password"
                     />
+                    {type === "signup" && (
+                        <AuthInput
+                            name="passwordVerify"
+                            value={formState.passwordVerify}
+                            error={formState.passwordVerifyError}
+                            handlers={{
+                                handleChange: handlers.handleInputChange,
+                                handleBlur: handlers.handleInputBlur,
+                            }}
+                        />
+                    )}
                     <hr className="mb-7 border-2 border-[#2E2E2E]" />
                     <Button label="Submit" className="mb-2" />
                     {authState.isError && (
