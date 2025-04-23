@@ -1,6 +1,7 @@
 import { FormEvent, InputBlur } from "../types";
 type AuthInputProps = {
     name: string;
+    label?: string;
     value?: string;
     error?: string;
     handlers: {
@@ -12,6 +13,7 @@ type AuthInputProps = {
 
 export default function AuthInput({
     name,
+    label,
     value,
     error,
     handlers,
@@ -34,7 +36,7 @@ export default function AuthInput({
                     className="absolute bottom-0 cursor-text py-2 pl-3 text-[#999] duration-100 ease-linear peer-not-placeholder-shown:bottom-10 peer-not-placeholder-shown:p-1 peer-not-placeholder-shown:text-sm peer-focus-visible:bottom-10 peer-focus-visible:p-1 peer-focus-visible:text-sm"
                     htmlFor={`${name}-field`}
                 >
-                    {name}
+                    {label || name}
                 </label>
             </div>
             {error && <small className="p-1 text-red-500">{error}</small>}

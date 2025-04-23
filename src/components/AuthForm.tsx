@@ -72,12 +72,14 @@ export default function AuthForm({
                     {type === "signup" && (
                         <AuthInput
                             name="passwordVerify"
+                            label="verify password"
                             value={formState.passwordVerify}
                             error={formState.passwordVerifyError}
                             handlers={{
                                 handleChange: handlers.handleInputChange,
                                 handleBlur: handlers.handleInputBlur,
                             }}
+                            type="password"
                         />
                     )}
                     <hr className="mb-7 border-2 border-[#2E2E2E]" />
