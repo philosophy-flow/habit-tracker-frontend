@@ -24,7 +24,9 @@ export default function Button({
     const variantDanger =
         variant === "danger" ? "border-2 border-[#ff4b4b] bg-transparent " : "";
     const variantTertiary =
-        variant === "tertiary" ? "border-2 border-[#63B3B2] " : "";
+        variant === "tertiary"
+            ? "border-2 border-[#63B3B2] transition-shadow duration-200 ease-in-out transform transition-transform duration-150 ease-out hover:scale-[1.02] "
+            : "";
 
     const additionalStyles = !variant
         ? "bg-[#009963] border-2 border-transparent hover:bg-[#1CB17A] hover:border-[#009963] transition duration-150 ease-out"
