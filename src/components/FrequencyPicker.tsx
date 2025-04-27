@@ -1,9 +1,5 @@
+import { FrequencyPickerProps } from "./types";
 import FrequencyButton from "./FrequencyButton";
-
-type FrequencyPickerProps = {
-    updateFrequency: (day: string) => void;
-    frequency: string[];
-};
 
 export default function FrequencyPicker({
     updateFrequency,

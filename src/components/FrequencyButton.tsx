@@ -1,9 +1,4 @@
-type FrequencyButtonProps = {
-    frequency: string[];
-    day: string;
-    label: string;
-    updateFrequency: (day: string) => void;
-};
+import { FrequencyButtonProps } from "./types";
 
 export default function FrequencyButton({
     frequency,

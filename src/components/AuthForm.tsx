@@ -1,32 +1,5 @@
-import { FormEvent, FormSubmit, InputBlur } from "../types";
+import { AuthFormProps } from "./types";
 import { Button, Header, AuthInput } from "./";
-
-type AuthFormProps = {
-    type: "signup" | "login";
-    authState: {
-        isLoading: boolean;
-        loadingMessage: string;
-        isSuccess: boolean;
-        successMessage: string;
-        isError: boolean;
-        errorMessage: string;
-    };
-    formState: {
-        email?: string;
-        username: string;
-        password: string;
-        passwordVerify?: string;
-        emailError?: string;
-        usernameError: string;
-        passwordError: string;
-        passwordVerifyError?: string;
-    };
-    handlers: {
-        handleInputChange: (e: FormEvent) => void;
-        handleInputBlur: (e: InputBlur) => void;
-        handleFormSubmit: (e: FormSubmit) => void;
-    };
-};
 
 export default function AuthForm({
     type,

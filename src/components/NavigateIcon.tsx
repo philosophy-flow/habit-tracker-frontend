@@ -1,8 +1,5 @@
+import { NavigateIconProps } from "./types";
 import { Link } from "react-router";
-
-type NavigateIconProps = {
-    navigateTo: string;
-};
 
 export default function NavigateIcon({ navigateTo }: NavigateIconProps) {
     return (

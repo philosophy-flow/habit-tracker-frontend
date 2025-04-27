@@ -1,15 +1,4 @@
-import { FormEvent, InputBlur } from "../types";
-type AuthInputProps = {
-    name: string;
-    label?: string;
-    value?: string;
-    error?: string;
-    handlers: {
-        handleChange: (e: FormEvent) => void;
-        handleBlur: (e: InputBlur) => void;
-    };
-    type?: string;
-};
+import { AuthInputProps } from "./types";
 
 export default function AuthInput({
     name,

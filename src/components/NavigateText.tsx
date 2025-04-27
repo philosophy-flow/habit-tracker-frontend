@@ -1,10 +1,5 @@
+import { NavigateTextProps } from "./types";
 import { Link } from "react-router-dom";
-
-type NavigateTextProps = {
-    helperText: string;
-    anchorText: string;
-    path: string;
-};
 
 export default function HelperText({
     path,

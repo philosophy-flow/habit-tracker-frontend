@@ -1,12 +1,5 @@
+import { ButtonProps } from "./types";
 import { Link } from "react-router";
-
-type ButtonProps = {
-    onClick?: VoidFunction;
-    label: string;
-    variant?: string;
-    className?: string;
-    to?: string;
-};
 
 export default function Button({
     onClick,

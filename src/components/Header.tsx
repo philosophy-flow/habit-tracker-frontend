@@ -1,6 +1,4 @@
-type HeaderProps = {
-    label: string;
-};
+import { HeaderProps } from "./types";
 
 export default function Header({ label }: HeaderProps) {
     return (

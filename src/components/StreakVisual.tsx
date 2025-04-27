@@ -1,9 +1,4 @@
-type StreakVisualProps = {
-    isChecked: boolean;
-    prevSixComplete: boolean[];
-    completionStreak: number;
-    inactive: boolean;
-};
+import { StreakVisualProps } from "./types";
 
 export default function StreakVisual({
     prevSixComplete,
