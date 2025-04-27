@@ -57,7 +57,7 @@ export default function HabitCard({
                         <nav>
                             <button
                                 onClick={handleEdit}
-                                className="mr-2 rounded border-2 border-[#63B3B2] px-3 py-1 text-sm hover:cursor-pointer focus-visible:border-[#FF4D8D] focus-visible:ring-1 focus-visible:ring-[#FF4D8D] focus-visible:outline-none"
+                                className="mr-2 rounded border-2 border-[#63B3B2] px-3 py-1 text-sm hover:cursor-pointer hover:border-[#4A9190] focus-visible:border-[#FF4D8D] focus-visible:ring-1 focus-visible:ring-[#FF4D8D] focus-visible:outline-none"
                             >
                                 edit
                             </button>

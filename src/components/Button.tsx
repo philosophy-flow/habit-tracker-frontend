@@ -22,10 +22,12 @@ export default function Button({
     const variantDark =
         variant === "dark" ? "bg-[#2E2E2E] border-2 border-transparent " : "";
     const variantDanger =
-        variant === "danger" ? "border-2 border-[#ff4b4b] bg-transparent " : "";
+        variant === "danger"
+            ? "border-2 border-[#ff4b4b] hover:border-[#de3a3a] bg-transparent "
+            : "";
     const variantTertiary =
         variant === "tertiary"
-            ? "border-2 border-[#63B3B2] transition-shadow duration-200 ease-in-out transform transition-transform duration-150 ease-out hover:scale-[1.02] "
+            ? "border-2 border-[#63B3B2] hover:border-[#4A9190] "
             : "";
 
     const additionalStyles = !variant
