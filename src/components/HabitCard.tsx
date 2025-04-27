@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { generateCompletionArr, calculateStreak } from "../utils";
 import StreakVisual from "./StreakVisual";
 
@@ -24,14 +22,9 @@ export default function HabitCard({
     toggleComplete,
     handleEdit,
 }: HabitCardProps) {
-    const [isChecked, setIsChecked] = useState(
-        datesCompleted.includes(new Date().toLocaleDateString("en-CA")),
+    const isChecked = datesCompleted.includes(
+        new Date().toLocaleDateString("en-CA"),
     );
-
-    const handleChecked = () => {
-        setIsChecked((prev) => !prev);
-        toggleComplete(id);
-    };
 
     const prevSixComplete = generateCompletionArr(datesCompleted, frequency);
     const completionStreak = calculateStreak(
@@ -69,7 +62,7 @@ export default function HabitCard({
                         <input
                             type="checkbox"
                             checked={isChecked}
-                            onChange={handleChecked}
+                            onChange={() => toggleComplete(id)}
                             className="peer relative h-[20px] w-[20px] appearance-none rounded border-2 border-[#2E2E2E] transition duration-150 ease-out checked:bg-[#009963] hover:cursor-pointer focus-visible:ring-2 focus-visible:ring-[#FF4D8D] focus-visible:outline-none"
                         />
                         <svg
