@@ -81,6 +81,15 @@ export default function HabitModPage({ title }: HabitModPageTypes) {
 
         if (zodNameError) return;
 
+        const duplicateExists = habits.some(
+            (habit) => habitName === habit.name && id !== habit.habit_id,
+        );
+
+        if (duplicateExists) {
+            setNameError("there is already a habit with this name");
+            return;
+        }
+
         const finalFrequency =
             habitFrequencyType === "daily" ? weekdays : habitFrequencyDetail;
 
@@ -104,6 +113,12 @@ export default function HabitModPage({ title }: HabitModPageTypes) {
         setNameError(zodNameError);
 
         if (zodNameError) return;
+
+        const existingNames = habits.map((h) => h.name);
+        if (existingNames.includes(habitName)) {
+            setNameError("there is already a habit with this name");
+            return;
+        }
 
         const finalFrequency =
             habitFrequencyType === "daily" ? weekdays : habitFrequencyDetail;
